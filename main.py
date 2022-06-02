@@ -1,18 +1,21 @@
+import json
 import random
 from random import randint
 
-from game_triple_triad import Board, Card, Player, Modes
-import json
+from game_triple_triad import Board
+from game_triple_triad import Card
+from game_triple_triad import Modes
+from game_triple_triad import Player
 
 
 def load_cards():
-    with open('assets/cards.json') as cards_json:
+    with open("assets/cards.json") as cards_json:
         cards = json.load(cards_json)
 
     return cards
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cards = load_cards()
 
     while True:
@@ -31,17 +34,16 @@ if __name__ == '__main__':
         ]
         random.shuffle(positions)
 
-
         for i in range(0, 9):
-            card_to_play = cards['cards'][randint(0, 340)]
+            card_to_play = cards["cards"][randint(0, 340)]
 
             card = Card(
-                top=card_to_play['stats']['top'],
-                left=card_to_play['stats']['left'],
-                right=card_to_play['stats']['right'],
-                bottom=card_to_play['stats']['bottom'],
-                id=card_to_play['id'],
-                type=card_to_play['type'],
+                top=card_to_play["stats"]["top"],
+                left=card_to_play["stats"]["left"],
+                right=card_to_play["stats"]["right"],
+                bottom=card_to_play["stats"]["bottom"],
+                id=card_to_play["id"],
+                type=card_to_play["type"],
             )
             pos = positions.pop()
             board.play_turn(card, pos[0], pos[1])
