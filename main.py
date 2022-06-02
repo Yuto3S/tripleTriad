@@ -48,6 +48,6 @@ if __name__ == "__main__":
             pos = positions.pop()
             board.play_turn(card, pos[0], pos[1])
             # board.print()
-        # board.display()
+        board.display()
 
     # board.display()
