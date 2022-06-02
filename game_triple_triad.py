@@ -210,16 +210,14 @@ class Board:
         self.types_updated[card_type] = self.types_updated.get(card_type, 0) + 1
 
     def update_card_values(self, card):
+        values = ["top", "left", "right", "bottom"]
+
         if Modes.ASCENSION in self.modes:
-            card["top"] = min(10, card["top"] + 1)
-            card["left"] = min(10, card["left"] + 1)
-            card["right"] = min(10, card["right"] + 1)
-            card["bottom"] = min(10, card["bottom"] + 1)
+            for value in values:
+                card[value] = min(10, card[value] + 1)
         elif Modes.DESCENSION in self.modes:
-            card["top"] = max(1, card["top"] - 1)
-            card["left"] = max(1, card["left"] - 1)
-            card["right"] = max(1, card["right"] - 1)
-            card["bottom"] = max(1, card["bottom"] - 1)
+            for value in values:
+                card[value] = max(1, card[value] - 1)
 
     def find_card_position(self, card_id):
         for pos_x, row in enumerate(self.board):
