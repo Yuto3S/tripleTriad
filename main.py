@@ -14,7 +14,7 @@ def load_cards():
 
 if __name__ == '__main__':
     cards = load_cards()
-    board = Board(first_player=Player.BLUE, modes=[Modes.REVERSE])
+    board = Board(first_player=Player.BLUE, modes=[])
 
     positions = [
         [0, 0],
@@ -33,7 +33,16 @@ if __name__ == '__main__':
         card_to_play = randint(0, 340)
         card_in_play = cards['cards'][card_to_play]['stats']
 
-        card = Card(top=card_in_play['top'], left=card_in_play['left'], right=card_in_play['right'], bottom=card_in_play['bottom'])
+        card = Card(
+            top=card_in_play['top'],
+            left=card_in_play['left'],
+            right=card_in_play['right'],
+            bottom=card_in_play['bottom'],
+            id=cards['cards'][card_to_play]['id'],
+        )
         pos = positions.pop()
         board.play(card, pos[0], pos[1])
         board.print()
+        board.display()
+
+    # board.display()

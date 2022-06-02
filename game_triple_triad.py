@@ -1,9 +1,15 @@
 from dataclasses import dataclass
 from enum import Enum
+import cv2
+import numpy as np
 
 BLUE = '\033[94m'
 RED = '\033[31m'
 DEFAULT = '\033[0m'
+
+HEIGHT = 128
+WIDTH = 104
+CHANNELS = 3
 
 
 class Player(Enum):
@@ -15,6 +21,9 @@ class Modes(Enum):
     PLUS = 'PLUS'
     SAME = 'SAME'
     REVERSE = 'REVERSE'
+    FALLEN_ACE = 'FALLEN_ACE'
+    ASCENSION = 'ASCENSION'
+    DESCENSION = 'DESCENSION'
 
 
 @dataclass
@@ -23,6 +32,7 @@ class Card:
     left: int
     right: int
     bottom: int
+    id: int
 
 
 class Board:
@@ -102,6 +112,10 @@ class Board:
         if Modes.REVERSE in self.modes:
             return card_1_value < card_2_value
 
+        if Modes.FALLEN_ACE in self.modes:
+            if card_1_value == 1 and card_2_value == 10:
+                return True
+
         return card_1_value > card_2_value
 
     def print(self):
@@ -138,5 +152,19 @@ class Board:
 
             print('|')
 
+    def display(self):
+        background = np.zeros((HEIGHT*3, WIDTH*3, CHANNELS), np.uint8)
+        for height, row in enumerate(self.board):
+            for width, cell in enumerate(row):
+                if cell:
+                    card_image = cv2.imread(f"assets/images/{cell['card'].id}.png")
 
+                    if cell['color'] == Player.BLUE.name:
+                        card_image = np.power(card_image, [1.3, 1.0, 1.0])
+                    else:
+                        card_image = np.power(card_image, [1.0, 1.0, 1.3])
 
+                    background[height*HEIGHT:(height+1)*HEIGHT, width*WIDTH:(width+1)*WIDTH] = card_image
+
+        cv2.imshow("", background)
+        cv2.waitKey(1000)
