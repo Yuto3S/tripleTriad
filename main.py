@@ -45,10 +45,9 @@ if __name__ == "__main__":
                 id=card_to_play["id"],
                 type=card_to_play["type"],
             )
-            print(card)
             pos = positions.pop()
             board.play_turn(card, pos[0], pos[1])
-            board.print()
+            # board.print()
         # board.display()
 
     # board.display()

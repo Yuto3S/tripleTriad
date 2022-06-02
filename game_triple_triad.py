@@ -24,6 +24,12 @@ class Modes(Enum):
     FALLEN_ACE = "FALLEN_ACE"
     ASCENSION = "ASCENSION"
     DESCENSION = "DESCENSION"
+    SUDDEN_DEATH = "SUDDEN_DEATH"  # Not implemented
+    RANDOM = "RANDOM"  # Not Implemented
+    ORDER = "ORDER"  # Not Implemented
+    CHAOS = "CHAOS"  # Not Implemented
+    SWAP = "SWAP"  # Not Implemented
+    DRAFT = "DRAFT"  # Not Implemented
 
 
 class Card(dict):
@@ -113,10 +119,8 @@ class Board:
         if cell["color"] == self.current_player.name:
             return
 
-        self.display()
         pos_x, pos_y = self.find_card_position(cell["card"]["id"])
         self.play_card(cell["card"], pos_x, pos_y)
-        self.display()
 
     def end_turn(self, card):
         self.current_player = (
