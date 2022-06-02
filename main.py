@@ -14,35 +14,38 @@ def load_cards():
 
 if __name__ == '__main__':
     cards = load_cards()
-    board = Board(first_player=Player.BLUE, modes=[])
 
-    positions = [
-        [0, 0],
-        [0, 1],
-        [0, 2],
-        [1, 0],
-        [1, 1],
-        [1, 2],
-        [2, 0],
-        [2, 1],
-        [2, 2],
-    ]
-    random.shuffle(positions)
+    while True:
+        board = Board(first_player=Player.BLUE, modes=[Modes.PLUS])
 
-    for i in range(0, 9):
-        card_to_play = randint(0, 340)
-        card_in_play = cards['cards'][card_to_play]['stats']
+        positions = [
+            [0, 0],
+            [0, 1],
+            [0, 2],
+            [1, 0],
+            [1, 1],
+            [1, 2],
+            [2, 0],
+            [2, 1],
+            [2, 2],
+        ]
+        random.shuffle(positions)
 
-        card = Card(
-            top=card_in_play['top'],
-            left=card_in_play['left'],
-            right=card_in_play['right'],
-            bottom=card_in_play['bottom'],
-            id=cards['cards'][card_to_play]['id'],
-        )
-        pos = positions.pop()
-        board.play(card, pos[0], pos[1])
-        board.print()
-        board.display()
+
+        for i in range(0, 9):
+            card_to_play = cards['cards'][randint(0, 340)]
+
+            card = Card(
+                top=card_to_play['stats']['top'],
+                left=card_to_play['stats']['left'],
+                right=card_to_play['stats']['right'],
+                bottom=card_to_play['stats']['bottom'],
+                id=card_to_play['id'],
+                type=card_to_play['type'],
+            )
+            pos = positions.pop()
+            board.play_turn(card, pos[0], pos[1])
+            board.print()
+        # board.display()
 
     # board.display()
