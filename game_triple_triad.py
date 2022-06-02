@@ -59,7 +59,7 @@ class Board:
             self.maybe_rules_multiple_takes(neighbors, card)
             self.end_turn(card)
         else:
-            raise Exception(f"This cell is already taken by another card")
+            raise Exception("This cell is already taken by another card")
 
     def play_card(self, card, pos_x, pos_y):
         self.board[pos_x][pos_y] = {"card": card, "color": self.current_player.name}
