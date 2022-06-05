@@ -1,4 +1,5 @@
 from enum import Enum
+from uuid import uuid4
 
 import cv2
 import numpy as np
@@ -39,6 +40,7 @@ class Card(dict):
     bottom: int
     id: int
     type: int
+    custom_id: int
 
 
 class Board:
@@ -54,10 +56,11 @@ class Board:
 
     def play_turn(self, card, pos_x, pos_y):
         if self.board[pos_x][pos_y] is None:
+            card["custom_id"] = uuid4()
             for i in range(0, self.types_updated.get(card["type"], 0)):
                 self.update_card_values(card)
 
-            self.play_card(card, pos_x, pos_y)
+            self._play_card(card, pos_x, pos_y)
 
             neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
             self.maybe_rules_multiple_takes(neighbors, card)
@@ -65,7 +68,7 @@ class Board:
         else:
             raise Exception("This cell is already taken by another card")
 
-    def play_card(self, card, pos_x, pos_y):
+    def _play_card(self, card, pos_x, pos_y):
         self.board[pos_x][pos_y] = {"card": card, "color": self.current_player.name}
         neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
         if neighbors:
@@ -95,22 +98,52 @@ class Board:
         The all_comparisons list below represent those possibilities
         """
         all_comparisons = [
-            ["top", "left", "bottom", "right"],
-            ["top", "right", "bottom", "left"],
-            ["top", "bottom", "bottom", "top"],
-            ["left", "right", "right", "left"],
-            ["left", "right", "bottom", "top"],
-            ["right", "left", "bottom", "top"],
+            {
+                "neighbor1": "top",
+                "neighbor2": "left",
+                "neighbor1_comparison": "bottom",
+                "neighbor2_comparison": "right",
+            },
+            {
+                "neighbor1": "top",
+                "neighbor2": "right",
+                "neighbor1_comparison": "bottom",
+                "neighbor2_comparison": "left",
+            },
+            {
+                "neighbor1": "top",
+                "neighbor2": "bottom",
+                "neighbor1_comparison": "bottom",
+                "neighbor2_comparison": "top",
+            },
+            {
+                "neighbor1": "left",
+                "neighbor2": "right",
+                "neighbor1_comparison": "right",
+                "neighbor2_comparison": "left",
+            },
+            {
+                "neighbor1": "left",
+                "neighbor2": "bottom",
+                "neighbor1_comparison": "right",
+                "neighbor2_comparison": "top",
+            },
+            {
+                "neighbor1": "right",
+                "neighbor2": "bottom",
+                "neighbor1_comparison": "left",
+                "neighbor2_comparison": "top",
+            },
         ]
 
         for comparison in all_comparisons:
-            if cell_1 := neighbors.get(comparison[0]):
-                if cell_2 := neighbors.get(comparison[1]):
+            if cell_1 := neighbors.get(comparison["neighbor1"]):
+                if cell_2 := neighbors.get(comparison["neighbor2"]):
                     if self.compare_rule(
-                        card[comparison[0]],
-                        cell_1["card"][comparison[2]],
-                        card[comparison[1]],
-                        cell_2["card"][comparison[3]],
+                        card[comparison["neighbor1"]],
+                        cell_1["card"][comparison["neighbor1_comparison"]],
+                        card[comparison["neighbor2"]],
+                        cell_2["card"][comparison["neighbor2_comparison"]],
                     ):
                         self.maybe_update_cell_take_over_rule(cell_1)
                         self.maybe_update_cell_take_over_rule(cell_2)
@@ -119,8 +152,8 @@ class Board:
         if cell["color"] == self.current_player.name:
             return
 
-        pos_x, pos_y = self.find_card_position(cell["card"]["id"])
-        self.play_card(cell["card"], pos_x, pos_y)
+        pos_x, pos_y = self.find_card_position(cell["card"]["custom_id"])
+        self._play_card(cell["card"], pos_x, pos_y)
 
     def end_turn(self, card):
         self.current_player = (
@@ -223,11 +256,14 @@ class Board:
             for value in values:
                 card[value] = max(1, card[value] - 1)
 
-    def find_card_position(self, card_id):
+    def find_card_position(self, card_custom_id):
         for pos_x, row in enumerate(self.board):
             for pos_y, cell in enumerate(row):
-                if cell and cell["card"]["id"] == card_id:
+                if cell and cell["card"]["custom_id"] == card_custom_id:
                     return pos_x, pos_y
+
+    def get_cell_information_on_position(self, pos_x, pos_y):
+        return self.board[pos_x][pos_y]
 
     def print(self):
         print(" _______________________ ")
