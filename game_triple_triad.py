@@ -72,7 +72,7 @@ class Board:
 
     def play_turn(self, card, pos_x, pos_y):
         if self.board[pos_x][pos_y] is None:
-            card["custom_id"] = uuid4()
+            card["custom_id"] = card.get("custom_id", uuid4())
             for i in range(0, self.types_updated.get(card["type"], 0)):
                 self.update_card_values(card)
 
@@ -212,6 +212,9 @@ class Board:
 
     def get_history(self):
         return self.history
+
+    def get_board(self):
+        return self.board
 
     def check_if_there_is_any_neighbors(self, pos_x, pos_y):
         neighbors = {}
