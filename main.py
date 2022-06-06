@@ -18,7 +18,7 @@ def load_cards():
 
 
 def simulate_game():
-    board = Board(first_player=Player.BLUE, modes=[])
+    board = Board(first_player=Player.BLUE, modes=[], save_history=True)
 
     positions = [
         [0, 0],
@@ -46,6 +46,19 @@ def simulate_game():
         )
         pos = positions.pop()
         board.play_turn(card, pos[0], pos[1])
+        print(
+            "================================================================================"
+        )
+        for entry in board.get_history()["cards_played"]:
+            print(entry)
+            print(
+                "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+            )
+
+        board.print()
+        # for board in board.get_history()["boards"]:
+        #     print(board)
+        # print(board.get_history())
         # board.print()
 
     print(board.get_winner())

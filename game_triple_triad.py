@@ -45,8 +45,14 @@ class Card(dict):
     custom_id: int
 
 
+class History(dict):
+    cards_played = []
+    first_player: Player
+    depth: int
+
+
 class Board:
-    def __init__(self, first_player, modes):
+    def __init__(self, first_player, modes, save_history=False):
         self.board = [
             [None, None, None],
             [None, None, None],
@@ -57,6 +63,12 @@ class Board:
         self.modes = modes
         self.types_updated = {}
         self.winner = None
+        self.save_history = save_history
+        self.history = History(
+            cards_played=[],
+            first_player=first_player,
+            depth=0,
+        )
 
     def play_turn(self, card, pos_x, pos_y):
         if self.board[pos_x][pos_y] is None:
@@ -162,12 +174,14 @@ class Board:
     def end_turn(self, card):
         if all(all(row) for row in self.board):
             self.winner = self.calculate_winner()
-            return
+        else:
+            self.current_player = (
+                Player.RED if self.current_player == Player.BLUE else Player.BLUE
+            )
+            self.maybe_update_card_values(card["type"])
 
-        self.current_player = (
-            Player.RED if self.current_player == Player.BLUE else Player.BLUE
-        )
-        self.maybe_update_card_values(card["type"])
+        if self.save_history:
+            self.update_history(card)
 
     def get_winner(self):
         return self.winner
@@ -189,6 +203,15 @@ class Board:
                 if self.first_player == Player.BLUE
                 else Player.BLUE.name
             )
+
+    def update_history(self, card):
+        self.history["cards_played"].append(
+            (card, self.find_card_position(card["custom_id"]))
+        )
+        self.history["depth"] += 1
+
+    def get_history(self):
+        return self.history
 
     def check_if_there_is_any_neighbors(self, pos_x, pos_y):
         neighbors = {}
