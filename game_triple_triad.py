@@ -8,6 +8,8 @@ BLUE = "\033[94m"
 RED = "\033[31m"
 DEFAULT = "\033[0m"
 
+DRAW = "DRAW"
+
 HEIGHT = 128
 WIDTH = 104
 CHANNELS = 3
@@ -50,9 +52,11 @@ class Board:
             [None, None, None],
             [None, None, None],
         ]
+        self.first_player = first_player
         self.current_player = first_player
         self.modes = modes
         self.types_updated = {}
+        self.winner = None
 
     def play_turn(self, card, pos_x, pos_y):
         if self.board[pos_x][pos_y] is None:
@@ -69,7 +73,7 @@ class Board:
             raise Exception("This cell is already taken by another card")
 
     def _play_card(self, card, pos_x, pos_y):
-        self.board[pos_x][pos_y] = {"card": card, "color": self.current_player.name}
+        self.board[pos_x][pos_y] = {"card": card, "color": self.current_player}
         neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
         if neighbors:
             self.maybe_take_over_neighbors(card, neighbors)
@@ -149,17 +153,42 @@ class Board:
                         self.maybe_update_cell_take_over_rule(cell_2)
 
     def maybe_update_cell_take_over_rule(self, cell):
-        if cell["color"] == self.current_player.name:
+        if cell["color"] == self.current_player:
             return
 
         pos_x, pos_y = self.find_card_position(cell["card"]["custom_id"])
         self._play_card(cell["card"], pos_x, pos_y)
 
     def end_turn(self, card):
+        if all(all(row) for row in self.board):
+            self.winner = self.calculate_winner()
+            return
+
         self.current_player = (
             Player.RED if self.current_player == Player.BLUE else Player.BLUE
         )
         self.maybe_update_card_values(card["type"])
+
+    def get_winner(self):
+        return self.winner
+
+    def calculate_winner(self):
+        cards_to_first_player = 0
+        for row in self.board:
+            for cell in row:
+                if cell["color"] == self.first_player:
+                    cards_to_first_player += 1
+
+        if cards_to_first_player > 5:
+            return self.first_player.name
+        elif cards_to_first_player == 5:
+            return DRAW
+        else:
+            return (
+                Player.RED.name
+                if self.first_player == Player.BLUE
+                else Player.BLUE.name
+            )
 
     def check_if_there_is_any_neighbors(self, pos_x, pos_y):
         neighbors = {}
@@ -188,10 +217,7 @@ class Board:
             self.maybe_take_over_neighbor(card, neighbor_position, neighbor_card)
 
     def maybe_take_over_neighbor(self, card, neighbor_position, neighbor_card):
-        if neighbor_card is None:
-            return
-
-        if neighbor_card["color"] == self.current_player.name:
+        if neighbor_card["color"] == self.current_player:
             return
 
         card_value = 0
@@ -211,7 +237,7 @@ class Board:
             neighbor_card_value = neighbor_card["card"]["top"]
 
         if self.compare(card_value, neighbor_card_value):
-            neighbor_card["color"] = self.current_player.name
+            neighbor_card["color"] = self.current_player
 
     def compare(self, card_1_value, card_2_value):
         if Modes.REVERSE in self.modes:
@@ -271,7 +297,7 @@ class Board:
             for card in row:
                 if card:
                     top = "A" if card["card"]["top"] == 10 else card["card"]["top"]
-                    color = BLUE if card["color"] == Player.BLUE.name else RED
+                    color = BLUE if card["color"] == Player.BLUE else RED
                     print(f"| {' '} {color}{top} {' '} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -284,7 +310,7 @@ class Board:
                     right = (
                         "A" if card["card"]["right"] == 10 else card["card"]["right"]
                     )
-                    color = BLUE if card["color"] == Player.BLUE.name else RED
+                    color = BLUE if card["color"] == Player.BLUE else RED
                     print(f"| {color}{left} {' '} {right} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -296,7 +322,7 @@ class Board:
                     bottom = (
                         "A" if card["card"]["bottom"] == 10 else card["card"]["bottom"]
                     )
-                    color = BLUE if card["color"] == Player.BLUE.name else RED
+                    color = BLUE if card["color"] == Player.BLUE else RED
                     print(f"|_{'_'}_{color}{bottom}{DEFAULT}_{'_'}_", end="")
                 else:
                     print("|_______", end="")
@@ -310,7 +336,7 @@ class Board:
                 if cell:
                     card_image = cv2.imread(f"assets/images/{cell['card']['id']}.png")
 
-                    if cell["color"] == Player.BLUE.name:
+                    if cell["color"] == Player.BLUE:
                         card_image = np.power(card_image, [1.3, 1.0, 1.0])
                     else:
                         card_image = np.power(card_image, [1.0, 1.0, 1.3])
@@ -321,4 +347,4 @@ class Board:
                     ] = card_image
 
         cv2.imshow("", background)
-        cv2.waitKey(1000)
+        cv2.waitKey(2000)
