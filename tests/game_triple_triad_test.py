@@ -1,6 +1,7 @@
 import copy
 import random
 from unittest import mock
+from uuid import uuid4
 
 import pytest
 
@@ -9,7 +10,7 @@ from game_triple_triad import Card
 from game_triple_triad import DRAW
 from game_triple_triad import History
 from game_triple_triad import Modes
-from game_triple_triad import Player
+from game_triple_triad import PlayerColor
 from tests.utils.const import HIGH_VALUE
 from tests.utils.const import LOW_VALUE
 from tests.utils.const import MEDIUM_VALUE
@@ -76,8 +77,8 @@ def high_card():
 
 
 class TestBoard:
-    first_player = Player.BLUE
-    second_player = Player.RED
+    first_player = PlayerColor.BLUE
+    second_player = PlayerColor.RED
 
     def test_board_init(self):
         board = Board(first_player=self.first_player, modes=[])
@@ -86,7 +87,7 @@ class TestBoard:
             [None, None, None],
             [None, None, None],
         ]
-        assert board.current_player == Player.BLUE
+        assert board.current_player == PlayerColor.BLUE
         assert board.modes == []
 
     @pytest.mark.parametrize("mode, expected", [(mode, [mode]) for mode in Modes])
@@ -219,9 +220,13 @@ class TestRules(TestBoard):
         self.board = Board(first_player=self.first_player, modes=[Modes.SAME])
         self.board.play_turn(copy.deepcopy(high_card), *card1_pos)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
-        self.board.play_turn(copy.deepcopy(high_card), *card2_pos)
+        high_card_2 = copy.deepcopy(high_card)
+        high_card_2["id"] = "22"
+        self.board.play_turn(high_card_2, *card2_pos)
 
-        self.board.play_turn(copy.deepcopy(high_card), 1, 1)
+        high_card_3 = copy.deepcopy(high_card)
+        high_card_3["id"] = "33"
+        self.board.play_turn(high_card_3, 1, 1)
 
         assert (
             self.board.get_cell_information_on_position(*card1_pos)["color"]
@@ -238,9 +243,13 @@ class TestRules(TestBoard):
     ):
         self.board = Board(first_player=self.first_player, modes=[Modes.SAME])
         self.board.play_turn(copy.deepcopy(high_card), *card1_pos)
-        self.board.play_turn(copy.deepcopy(high_card), *card2_pos)
+        high_card2 = copy.deepcopy(high_card)
+        high_card2["id"] = "22"
+        self.board.play_turn(high_card2, *card2_pos)
 
-        self.board.play_turn(copy.deepcopy(high_card), 1, 1)
+        high_card3 = copy.deepcopy(high_card)
+        high_card3["id"] = "33"
+        self.board.play_turn(high_card3, 1, 1)
 
         assert (
             self.board.get_cell_information_on_position(*card1_pos)["color"]
@@ -258,9 +267,14 @@ class TestRules(TestBoard):
         self.board = Board(first_player=self.first_player, modes=[Modes.PLUS])
         self.board.play_turn(copy.deepcopy(high_card), *card1_pos)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
-        self.board.play_turn(copy.deepcopy(high_card), *card2_pos)
 
-        self.board.play_turn(copy.deepcopy(medium_card), 1, 1)
+        high_card2 = copy.deepcopy(high_card)
+        high_card2["id"] = "22"
+        self.board.play_turn(high_card2, *card2_pos)
+
+        medium_card2 = copy.deepcopy(medium_card)
+        medium_card2["id"] = "12"
+        self.board.play_turn(medium_card2, 1, 1)
 
         assert (
             self.board.get_cell_information_on_position(*card1_pos)["color"]
@@ -275,9 +289,13 @@ class TestRules(TestBoard):
         self.board = Board(first_player=self.first_player, modes=[Modes.PLUS])
         self.board.play_turn(copy.deepcopy(high_card), 1, 2)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
-        self.board.play_turn(copy.deepcopy(high_card), 1, 0)
+        high_card2 = copy.deepcopy(high_card)
+        high_card2["id"] = "22"
+        self.board.play_turn(high_card2, 1, 0)
 
-        self.board.play_turn(copy.deepcopy(medium_card), 1, 1)
+        medium_card2 = copy.deepcopy(medium_card)
+        medium_card2["id"] = "12"
+        self.board.play_turn(medium_card2, 1, 1)
 
         assert (
             self.board.get_cell_information_on_position(0, 0)["color"]
@@ -319,9 +337,13 @@ class TestRules(TestBoard):
         self.board = Board(first_player=self.first_player, modes=[Modes.PLUS])
         self.board.play_turn(copy.deepcopy(high_card), 1, 2)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
-        self.board.play_turn(copy.deepcopy(high_card), 1, 0)
+        high_card2 = copy.deepcopy(high_card)
+        high_card2["id"] = "22"
+        self.board.play_turn(high_card2, 1, 0)
 
-        self.board.play_turn(copy.deepcopy(medium_card), 1, 1)
+        medium_card2 = copy.deepcopy(medium_card)
+        medium_card2["id"] = "12"
+        self.board.play_turn(medium_card2, 1, 1)
 
         assert (
             self.board.get_cell_information_on_position(0, 0)["color"]
@@ -479,7 +501,7 @@ class TestCalculateWinner(TestBoard):
 
     @pytest.mark.parametrize(
         "first_player, second_player",
-        [(Player.BLUE, Player.RED), (Player.RED, Player.BLUE)],
+        [(PlayerColor.BLUE, PlayerColor.RED), (PlayerColor.RED, PlayerColor.BLUE)],
     )
     def test_first_player_wins(self, first_player, second_player, low_card, high_card):
         self.board = Board(first_player=first_player, modes=[])
@@ -496,7 +518,7 @@ class TestCalculateWinner(TestBoard):
 
     @pytest.mark.parametrize(
         "first_player, second_player",
-        [(Player.BLUE, Player.RED), (Player.RED, Player.BLUE)],
+        [(PlayerColor.BLUE, PlayerColor.RED), (PlayerColor.RED, PlayerColor.BLUE)],
     )
     def test_second_player_wins(self, first_player, second_player, low_card, high_card):
         self.board = Board(first_player=first_player, modes=[])
@@ -521,7 +543,6 @@ class TestHistory(TestBoard):
         assert self.board.get_history() == History(
             cards_played=[],
             first_player=self.first_player,
-            depth=0,
         )
 
     def test_save_history(self, high_card, medium_card, low_card):
@@ -529,11 +550,14 @@ class TestHistory(TestBoard):
         counter = 0
         for position in ALL_POSITIONS:
             if not (counter % 3):
-                self.board.play_turn(copy.deepcopy(high_card), *position)
+                card = copy.deepcopy(high_card)
             elif not (counter % 2):
-                self.board.play_turn(copy.deepcopy(medium_card), *position)
+                card = copy.deepcopy(medium_card)
             else:
-                self.board.play_turn(copy.deepcopy(low_card), *position)
+                card = copy.deepcopy(low_card)
+
+            card["id"] = uuid4()
+            self.board.play_turn(card, *position)
 
             counter += 1
 
@@ -551,11 +575,11 @@ class TestHistory(TestBoard):
                 (medium_card, ALL_POSITIONS[8]),
             ],
             first_player=self.first_player,
-            depth=9,
         )
 
         for card_played in expected_history["cards_played"]:
             card_played[0]["custom_id"] = mock.ANY
+            card_played[0]["id"] = mock.ANY
 
         assert history == expected_history
 
@@ -563,7 +587,7 @@ class TestHistory(TestBoard):
     def test_history_can_be_replayed_for_all_modes(
         self, mode, low_card, medium_card, high_card
     ):
-        first_player = random.choice([Player.RED, Player.BLUE])
+        first_player = random.choice([PlayerColor.RED, PlayerColor.BLUE])
         self.board = Board(first_player=first_player, modes=[mode], save_history=True)
         random.shuffle(ALL_POSITIONS)
 
@@ -575,6 +599,7 @@ class TestHistory(TestBoard):
                     copy.deepcopy(high_card),
                 ]
             )
+            card["id"] = uuid4()
             self.board.play_turn(card, *position)
 
         history = self.board.get_history()
