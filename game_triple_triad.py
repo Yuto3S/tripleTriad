@@ -34,20 +34,68 @@ class Modes(Enum):
     DRAFT = "DRAFT"  # Not Implemented
 
 
-class Card(dict):
+class Card:
     top: int
     left: int
     right: int
     bottom: int
-    id: int
-    type: int
-    custom_id: int
+    card_id: int
+    card_type: int
+    game_id: str
+
+    def __init__(self, top, left, right, bottom, card_id, card_type, game_id=None):
+        self.top = top
+        self.left = left
+        self.right = right
+        self.bottom = bottom
+        self.card_id = card_id
+        self.card_type = card_type
+        self.game_id = game_id
+
+    @classmethod
+    def from_card(cls, existing_card):
+        return cls(
+            existing_card.top,
+            existing_card.left,
+            existing_card.right,
+            existing_card.bottom,
+            existing_card.card_id,
+            existing_card.card_type,
+            existing_card.game_id,
+        )
+
+    def update_game_id(self, color):
+        if self.game_id:
+            return
+
+        self.game_id = f"{self.card_id}{color}"
+
+    def get_game_id(self):
+        return self.game_id
+
+    def get_type(self):
+        return self.card_type
 
 
 class History(dict):
     cards_played = []
     first_player: PlayerColor
     boards = []
+
+
+class Cell:
+    color: PlayerColor
+    card: Card
+
+    def __init__(self, card, color):
+        self.card = card
+        self.color = color
+
+    def get_color(self):
+        return self.color
+
+    def get_card(self):
+        return self.card
 
 
 class Board:
@@ -76,15 +124,16 @@ class Board:
             if self.save_history:
                 self.update_history(card, pos_x, pos_y)
 
-            custom_id = f"{card['id']}{self.get_current_player().name}"
-            card["custom_id"] = card.get("custom_id", custom_id)
-            for i in range(0, self.types_updated.get(card["type"], 0)):
+            card.update_game_id(self.get_current_player().name)
+            for i in range(0, self.types_updated.get(card.get_type(), 0)):
                 self.update_card_values(card)
 
-            self._play_card(card, pos_x, pos_y)
-
+            # PLUS and SAME should be done before regular plays
             neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
             self.maybe_rules_multiple_takes(neighbors, card)
+
+            self._play_card(card, pos_x, pos_y, neighbors)
+
             self.end_turn(card)
         else:
             print(f"{pos_x}, {pos_x}, {card}")
@@ -101,11 +150,9 @@ class Board:
 
         return available_positions
 
-    def _play_card(self, card, pos_x, pos_y):
-        self.board[pos_x][pos_y] = {"card": card, "color": self.current_player.name}
-        neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
-        if neighbors:
-            self.maybe_take_over_neighbors(card, neighbors)
+    def _play_card(self, card, pos_x, pos_y, neighbors):
+        self.board[pos_x][pos_y] = Cell(card=card, color=self.current_player)
+        self.maybe_take_over_neighbors(card, neighbors)
 
     def maybe_rules_multiple_takes(self, neighbors, card):
         if not (Modes.PLUS in self.modes or Modes.SAME in self.modes):
@@ -184,11 +231,12 @@ class Board:
                         self.maybe_update_cell_take_over_rule(cell_2)
 
     def maybe_update_cell_take_over_rule(self, cell):
-        if cell["color"] == self.current_player.name:
+        if cell.get_color() == self.current_player:
             return
 
-        pos_x, pos_y = self.find_card_position(cell["card"]["custom_id"])
-        self._play_card(cell["card"], pos_x, pos_y)
+        pos_x, pos_y = self.find_card_position(cell.get_card().get_game_id())
+        neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
+        self._play_card(cell.get_card(), pos_x, pos_y, neighbors)
 
     def end_turn(self, card):
         self.turns_played += 1
@@ -196,7 +244,7 @@ class Board:
             self.winner = self.calculate_winner()
 
         self.switch_current_player()
-        self.maybe_update_card_values(card["type"])
+        self.maybe_update_card_values(card.get_type())
 
     def get_winner(self):
         return self.winner
@@ -211,7 +259,7 @@ class Board:
         cards_to_first_player = 0
         for row in self.board:
             for cell in row:
-                if cell["color"] == self.first_player.name:
+                if cell.get_color() == self.first_player:
                     cards_to_first_player += 1
 
         self.game_ended_cards_to_first_player = cards_to_first_player
@@ -237,18 +285,11 @@ class Board:
         ]
         for pos_x, row in enumerate(self.board):
             for pos_y, cell in enumerate(row):
-                if cell:
-                    tmp_board[pos_x][pos_y] = {
-                        "card": Card(
-                            top=cell["card"]["top"],
-                            left=cell["card"]["left"],
-                            right=cell["card"]["right"],
-                            bottom=cell["card"]["bottom"],
-                            id=cell["card"]["id"],
-                            type=cell["card"]["type"],
-                        ),
-                        "color": cell["color"],
-                    }
+                if cell is not None:
+                    tmp_board[pos_x][pos_y] = Cell(
+                        card=Card.from_card(cell.get_card()),
+                        color=cell.get_color(),
+                    )
 
         self.history["boards"].append(tmp_board)
 
@@ -307,27 +348,27 @@ class Board:
             self.maybe_take_over_neighbor(card, neighbor_position, neighbor_card)
 
     def maybe_take_over_neighbor(self, card, neighbor_position, neighbor_card):
-        if neighbor_card["color"] == self.current_player.name:
+        if neighbor_card.get_color() == self.current_player:
             return
 
         card_value = 0
         neighbor_card_value = 0
 
         if neighbor_position == "top":
-            card_value = card["top"]
-            neighbor_card_value = neighbor_card["card"]["bottom"]
+            card_value = card.top
+            neighbor_card_value = neighbor_card.get_card().bottom
         elif neighbor_position == "left":
-            card_value = card["left"]
-            neighbor_card_value = neighbor_card["card"]["right"]
+            card_value = card.left
+            neighbor_card_value = neighbor_card.get_card().right
         elif neighbor_position == "right":
-            card_value = card["right"]
-            neighbor_card_value = neighbor_card["card"]["left"]
+            card_value = card.right
+            neighbor_card_value = neighbor_card.get_card().left
         elif neighbor_position == "bottom":
-            card_value = card["bottom"]
-            neighbor_card_value = neighbor_card["card"]["top"]
+            card_value = card.right
+            neighbor_card_value = neighbor_card.get_card().top
 
         if self.compare(card_value, neighbor_card_value):
-            neighbor_card["color"] = self.current_player.name
+            neighbor_card.color = self.current_player.name
 
     def compare(self, card_1_value, card_2_value):
         if Modes.REVERSE in self.modes:
@@ -371,11 +412,12 @@ class Board:
             for value in values:
                 card[value] = max(1, card[value] - 1)
 
-    def find_card_position(self, card_custom_id):
+    def find_card_position(self, card_game_id):
         for pos_x, row in enumerate(self.board):
             for pos_y, cell in enumerate(row):
-                if cell and cell["card"]["custom_id"] == card_custom_id:
-                    return pos_x, pos_y
+                if cell:
+                    if cell.get_card()["card_game_id"] == card_game_id:
+                        return pos_x, pos_y
 
     def get_cell_information_on_position(self, pos_x, pos_y):
         return self.board[pos_x][pos_y]
@@ -386,35 +428,35 @@ class Board:
     def print(self):
         print(" _______________________ ")
         for row in self.board:
-            for card in row:
-                if card:
-                    top = "A" if card["card"]["top"] == 10 else card["card"]["top"]
-                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
+            for cell in row:
+                if cell:
+                    top = "A" if cell.get_card().top == 10 else cell.get_card().top
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
                     print(f"| {' '} {color}{top} {' '} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
 
             print("|")
 
-            for card in row:
-                if card:
-                    left = "A" if card["card"]["left"] == 10 else card["card"]["left"]
+            for cell in row:
+                if cell:
+                    left = "A" if cell.get_card().left == 10 else cell.get_card().left
                     right = (
-                        "A" if card["card"]["right"] == 10 else card["card"]["right"]
+                        "A" if cell.get_card().right == 10 else cell.get_card().right
                     )
-                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
                     print(f"| {color}{left} {' '} {right} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
 
             print("|")
 
-            for card in row:
-                if card:
+            for cell in row:
+                if cell:
                     bottom = (
-                        "A" if card["card"]["bottom"] == 10 else card["card"]["bottom"]
+                        "A" if cell.get_card().bottom == 10 else cell.get_card().bottom
                     )
-                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
                     print(f"|_{'_'}_{color}{bottom}{DEFAULT}_{'_'}_", end="")
                 else:
                     print("|_______", end="")
@@ -428,7 +470,7 @@ class Board:
                 if cell:
                     card_image = cv2.imread(f"assets/images/{cell['card']['id']}.png")
 
-                    if cell["color"] == PlayerColor.BLUE:
+                    if cell.get_color() == PlayerColor.BLUE:
                         card_image = np.power(card_image, [1.3, 1.0, 1.0])
                     else:
                         card_image = np.power(card_image, [1.0, 1.0, 1.3])

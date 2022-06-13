@@ -96,8 +96,8 @@ def setup_board_and_players():
                     left=card["stats"]["left"],
                     right=card["stats"]["right"],
                     bottom=card["stats"]["bottom"],
-                    id=card["id"],
-                    type=card["type"],
+                    card_id=card["id"],
+                    card_type=card["type"],
                 )
             )
 
