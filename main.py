@@ -62,7 +62,7 @@ def setup_board_and_players():
     return board, player_blue, player_red
 
 
-def simulate_negamax_versus_random(board, player_blue, player_red):
+def simulate_negamax_versus_random_negamax_first(board, player_blue, player_red):
     for i in range(9):
         if not i % 2:
             heuristic, best_move = negamax(
@@ -98,6 +98,42 @@ def simulate_negamax_versus_random(board, player_blue, player_red):
     print(f"Winner: {board.get_winner()}")
 
 
+def simulate_negamax_versus_random_negamax_second(board, player_blue, player_red):
+    for i in range(9):
+        if not i % 2:
+            random.shuffle(player_blue["cards"])
+            card = player_blue["cards"].pop()
+            positions = board.get_available_positions()
+            random.shuffle(positions)
+            board.play_turn(card, positions[0] // 3, positions[0] % 3)
+            player_blue["cards_played"].append(card)
+        else:
+            heuristic, best_move = negamax(
+                board, player_red, player_blue, -10000, 10000, -1
+            )
+
+            if best_move is None:
+                raise Exception("F best_move done, to implement solution")
+                # TODO Implement solution if no best_move found
+
+            print(
+                f"Heuristic red win: {heuristic} by playing {best_move.card.top} in {best_move.position}"
+            )
+            board.play_turn(
+                best_move.card, best_move.position // 3, best_move.position % 3
+            )
+
+            player_red["cards"] = [
+                card
+                for card in player_red["cards"]
+                if card.card_id != best_move.card.card_id
+            ]
+
+            player_red["cards_played"].append(best_move.card)
+
+    print(f"Winner: {board.get_winner()}")
+
+
 def save_x_stars(stars, cards):
     tmp_cards = []
     for card in cards["cards"]:
@@ -116,7 +152,8 @@ if __name__ == "__main__":
     statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
     while True:
         board, player_blue, player_red = setup_board_and_players()
-        simulate_negamax_versus_random(board, player_blue, player_red)
+        simulate_negamax_versus_random_negamax_first(board, player_blue, player_red)
+        # simulate_negamax_versus_random_negamax_second(board, player_blue, player_red)
         if board.get_winner():
             statistics[board.get_winner().name] += 1
         else:

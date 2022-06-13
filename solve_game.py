@@ -4,6 +4,7 @@ from typing import Tuple
 from game_triple_triad import Card
 from game_triple_triad import PlayerColor
 
+
 CORNER_DIRECTIONS_POSITIONS = [
     ("right", "bottom", 0),
     ("left", "bottom", 2),
