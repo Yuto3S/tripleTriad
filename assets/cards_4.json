@@ -1,0 +1,745 @@
+{
+  "cards": [
+    {
+      "name": "Ultima Weapon",
+      "id": 51,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/51.png",
+      "stats": {
+        "top": 7,
+        "left": 1,
+        "right": 8,
+        "bottom": 9
+      },
+      "type": 4
+    },
+    {
+      "name": "Odin",
+      "id": 52,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/52.png",
+      "stats": {
+        "top": 8,
+        "left": 8,
+        "right": 8,
+        "bottom": 1
+      },
+      "type": 1
+    },
+    {
+      "name": "Ramuh",
+      "id": 53,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/53.png",
+      "stats": {
+        "top": 8,
+        "left": 8,
+        "right": 1,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Leviathan",
+      "id": 54,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/54.png",
+      "stats": {
+        "top": 8,
+        "left": 1,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Shiva",
+      "id": 55,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/55.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Minfilia",
+      "id": 56,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/56.png",
+      "stats": {
+        "top": 9,
+        "left": 5,
+        "right": 8,
+        "bottom": 3
+      },
+      "type": 2
+    },
+    {
+      "name": "Lahabrea",
+      "id": 57,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/57.png",
+      "stats": {
+        "top": 4,
+        "left": 8,
+        "right": 9,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Cid Garlond",
+      "id": 58,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/58.png",
+      "stats": {
+        "top": 5,
+        "left": 2,
+        "right": 9,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Alphinaud & Alisaie",
+      "id": 59,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/59.png",
+      "stats": {
+        "top": 9,
+        "left": 9,
+        "right": 3,
+        "bottom": 3
+      },
+      "type": 2
+    },
+    {
+      "name": "Louisoix Leveilleur",
+      "id": 60,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/60.png",
+      "stats": {
+        "top": 9,
+        "left": 3,
+        "right": 4,
+        "bottom": 9
+      },
+      "type": 2
+    },
+    {
+      "name": "Aymeric",
+      "id": 96,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/96.png",
+      "stats": {
+        "top": 1,
+        "left": 9,
+        "right": 5,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Ravana",
+      "id": 97,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/97.png",
+      "stats": {
+        "top": 9,
+        "left": 1,
+        "right": 7,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Bismarck",
+      "id": 98,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/98.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 9,
+        "bottom": 7
+      },
+      "type": 1
+    },
+    {
+      "name": "Senor Sabotender",
+      "id": 118,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/118.png",
+      "stats": {
+        "top": 9,
+        "left": 6,
+        "right": 5,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Xande",
+      "id": 135,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/135.png",
+      "stats": {
+        "top": 9,
+        "left": 7,
+        "right": 4,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Brute Justice",
+      "id": 136,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/136.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Sephirot",
+      "id": 137,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/137.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "F'lhaminn",
+      "id": 138,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/138.png",
+      "stats": {
+        "top": 9,
+        "left": 7,
+        "right": 7,
+        "bottom": 3
+      },
+      "type": 2
+    },
+    {
+      "name": "Vidofnir",
+      "id": 139,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/139.png",
+      "stats": {
+        "top": 8,
+        "left": 6,
+        "right": 6,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Unei & Doga",
+      "id": 150,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/150.png",
+      "stats": {
+        "top": 6,
+        "left": 8,
+        "right": 8,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Tiamat",
+      "id": 151,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/151.png",
+      "stats": {
+        "top": 9,
+        "left": 6,
+        "right": 6,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Calofisteri",
+      "id": 152,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/152.png",
+      "stats": {
+        "top": 5,
+        "left": 8,
+        "right": 8,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Heavensward Thancred",
+      "id": 165,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/165.png",
+      "stats": {
+        "top": 8,
+        "left": 9,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 2
+    },
+    {
+      "name": "Heavensward Y'shtola",
+      "id": 166,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/166.png",
+      "stats": {
+        "top": 9,
+        "left": 5,
+        "right": 9,
+        "bottom": 2
+      },
+      "type": 2
+    },
+    {
+      "name": "Nael van Darnus",
+      "id": 167,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/167.png",
+      "stats": {
+        "top": 3,
+        "left": 9,
+        "right": 9,
+        "bottom": 3
+      },
+      "type": 4
+    },
+    {
+      "name": "Diabolos Hollow",
+      "id": 179,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/179.png",
+      "stats": {
+        "top": 4,
+        "left": 9,
+        "right": 4,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Armored Weapon",
+      "id": 180,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/180.png",
+      "stats": {
+        "top": 3,
+        "left": 7,
+        "right": 5,
+        "bottom": 9
+      },
+      "type": 4
+    },
+    {
+      "name": "Gigi",
+      "id": 181,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/181.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Shinryu",
+      "id": 197,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/197.png",
+      "stats": {
+        "top": 7,
+        "left": 2,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Yotsuyu",
+      "id": 198,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/198.png",
+      "stats": {
+        "top": 9,
+        "left": 6,
+        "right": 2,
+        "bottom": 8
+      },
+      "type": 4
+    },
+    {
+      "name": "Krile",
+      "id": 199,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/199.png",
+      "stats": {
+        "top": 2,
+        "left": 7,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 2
+    },
+    {
+      "name": "Lyse",
+      "id": 200,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/200.png",
+      "stats": {
+        "top": 6,
+        "left": 8,
+        "right": 9,
+        "bottom": 1
+      },
+      "type": 2
+    },
+    {
+      "name": "Argath Thadalfus",
+      "id": 209,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/209.png",
+      "stats": {
+        "top": 9,
+        "left": 8,
+        "right": 2,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Hancock",
+      "id": 219,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/219.png",
+      "stats": {
+        "top": 8,
+        "left": 7,
+        "right": 9,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Tsukuyomi",
+      "id": 228,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/228.png",
+      "stats": {
+        "top": 2,
+        "left": 8,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 1
+    },
+    {
+      "name": "Great Gold Whisker",
+      "id": 248,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/248.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 9,
+        "bottom": 6
+      },
+      "type": 3
+    },
+    {
+      "name": "Stormblood Gilgamesh",
+      "id": 249,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/249.png",
+      "stats": {
+        "top": 9,
+        "left": 4,
+        "right": 4,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Innocence",
+      "id": 267,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/267.png",
+      "stats": {
+        "top": 8,
+        "left": 8,
+        "right": 3,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Shadowbringers Y'shtola",
+      "id": 268,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/268.png",
+      "stats": {
+        "top": 2,
+        "left": 9,
+        "right": 9,
+        "bottom": 5
+      },
+      "type": 2
+    },
+    {
+      "name": "Shadowbringers Urianger",
+      "id": 269,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/269.png",
+      "stats": {
+        "top": 9,
+        "left": 9,
+        "right": 2,
+        "bottom": 5
+      },
+      "type": 2
+    },
+    {
+      "name": "Ran'jit",
+      "id": 270,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/270.png",
+      "stats": {
+        "top": 1,
+        "left": 5,
+        "right": 9,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Oracle of Light",
+      "id": 280,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/280.png",
+      "stats": {
+        "top": 7,
+        "left": 4,
+        "right": 7,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Ruby Weapon",
+      "id": 291,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/291.png",
+      "stats": {
+        "top": 8,
+        "left": 9,
+        "right": 7,
+        "bottom": 1
+      },
+      "type": 4
+    },
+    {
+      "name": "Elidibus",
+      "id": 300,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/300.png",
+      "stats": {
+        "top": 8,
+        "left": 4,
+        "right": 4,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Shadowbringers Thancred",
+      "id": 301,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/301.png",
+      "stats": {
+        "top": 7,
+        "left": 1,
+        "right": 9,
+        "bottom": 8
+      },
+      "type": 2
+    },
+    {
+      "name": "Sapphire Weapon",
+      "id": 302,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/302.png",
+      "stats": {
+        "top": 1,
+        "left": 7,
+        "right": 9,
+        "bottom": 8
+      },
+      "type": 4
+    },
+    {
+      "name": "Emerald Weapon",
+      "id": 312,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/312.png",
+      "stats": {
+        "top": 7,
+        "left": 8,
+        "right": 1,
+        "bottom": 9
+      },
+      "type": 4
+    },
+    {
+      "name": "Ryne",
+      "id": 313,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/313.png",
+      "stats": {
+        "top": 7,
+        "left": 1,
+        "right": 9,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Gaia",
+      "id": 314,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/314.png",
+      "stats": {
+        "top": 5,
+        "left": 9,
+        "right": 9,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "G-Warrior",
+      "id": 323,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/323.png",
+      "stats": {
+        "top": 9,
+        "left": 8,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Diamond Weapon",
+      "id": 324,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/324.png",
+      "stats": {
+        "top": 9,
+        "left": 1,
+        "right": 8,
+        "bottom": 7
+      },
+      "type": 4
+    },
+    {
+      "name": "Diablo Armament",
+      "id": 325,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/325.png",
+      "stats": {
+        "top": 4,
+        "left": 9,
+        "right": 4,
+        "bottom": 9
+      },
+      "type": 0
+    },
+    {
+      "name": "Anima",
+      "id": 339,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/339.png",
+      "stats": {
+        "top": 5,
+        "left": 9,
+        "right": 1,
+        "bottom": 9
+      },
+      "type": 1
+    },
+    {
+      "name": "Quintus van Cinna",
+      "id": 340,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/340.png",
+      "stats": {
+        "top": 9,
+        "left": 8,
+        "right": 3,
+        "bottom": 6
+      },
+      "type": 4
+    },
+    {
+      "name": "Endwalker Alphinaud & Alisaie",
+      "id": 341,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/341.png",
+      "stats": {
+        "top": 4,
+        "left": 3,
+        "right": 9,
+        "bottom": 9
+      },
+      "type": 2
+    },
+    {
+      "name": "Hythlodaeus",
+      "id": 342,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/342.png",
+      "stats": {
+        "top": 7,
+        "left": 6,
+        "right": 9,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Vrtra",
+      "id": 343,
+      "stars": 4,
+      "image": "https://triad.raelys.com/images/cards/large/343.png",
+      "stats": {
+        "top": 9,
+        "left": 7,
+        "right": 3,
+        "bottom": 7
+      },
+      "type": 0
+    }
+  ]
+}

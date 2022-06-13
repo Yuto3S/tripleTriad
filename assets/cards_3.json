@@ -1,0 +1,1577 @@
+{
+  "cards": [
+    {
+      "name": "Behemoth",
+      "id": 38,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/38.png",
+      "stats": {
+        "top": 7,
+        "left": 2,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Gilgamesh & Enkidu",
+      "id": 39,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/39.png",
+      "stats": {
+        "top": 8,
+        "left": 3,
+        "right": 3,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Ifrit",
+      "id": 40,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/40.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 1,
+        "bottom": 6
+      },
+      "type": 1
+    },
+    {
+      "name": "Titan",
+      "id": 41,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/41.png",
+      "stats": {
+        "top": 1,
+        "left": 6,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 1
+    },
+    {
+      "name": "Garuda",
+      "id": 42,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/42.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 6,
+        "bottom": 1
+      },
+      "type": 1
+    },
+    {
+      "name": "Good King Moggle Mog XII",
+      "id": 43,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/43.png",
+      "stats": {
+        "top": 7,
+        "left": 1,
+        "right": 6,
+        "bottom": 7
+      },
+      "type": 1
+    },
+    {
+      "name": "Raya-O-Senna & A-Ruhn-Senna",
+      "id": 44,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/44.png",
+      "stats": {
+        "top": 5,
+        "left": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Godbert Manderville",
+      "id": 45,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/45.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 6,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Thancred",
+      "id": 46,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/46.png",
+      "stats": {
+        "top": 2,
+        "left": 7,
+        "right": 3,
+        "bottom": 8
+      },
+      "type": 2
+    },
+    {
+      "name": "Nero tol Scaeva",
+      "id": 47,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/47.png",
+      "stats": {
+        "top": 4,
+        "left": 7,
+        "right": 1,
+        "bottom": 8
+      },
+      "type": 4
+    },
+    {
+      "name": "Papalymo & Yda",
+      "id": 48,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/48.png",
+      "stats": {
+        "top": 3,
+        "left": 2,
+        "right": 7,
+        "bottom": 8
+      },
+      "type": 2
+    },
+    {
+      "name": "Y'shtola",
+      "id": 49,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/49.png",
+      "stats": {
+        "top": 7,
+        "left": 4,
+        "right": 8,
+        "bottom": 1
+      },
+      "type": 2
+    },
+    {
+      "name": "Urianger",
+      "id": 50,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/50.png",
+      "stats": {
+        "top": 8,
+        "left": 7,
+        "right": 1,
+        "bottom": 4
+      },
+      "type": 2
+    },
+    {
+      "name": "Griffin",
+      "id": 86,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/86.png",
+      "stats": {
+        "top": 5,
+        "left": 8,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Tioman",
+      "id": 87,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/87.png",
+      "stats": {
+        "top": 1,
+        "left": 7,
+        "right": 5,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Estinien",
+      "id": 88,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/88.png",
+      "stats": {
+        "top": 8,
+        "left": 3,
+        "right": 8,
+        "bottom": 2
+      },
+      "type": 0
+    },
+    {
+      "name": "Lucia goe Junius",
+      "id": 89,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/89.png",
+      "stats": {
+        "top": 8,
+        "left": 8,
+        "right": 2,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Ysayle",
+      "id": 90,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/90.png",
+      "stats": {
+        "top": 4,
+        "left": 1,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Hilda",
+      "id": 91,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/91.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 4,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Matoya",
+      "id": 92,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/92.png",
+      "stats": {
+        "top": 8,
+        "left": 1,
+        "right": 3,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Count Edmont de Fortemps",
+      "id": 93,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/93.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 8,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Byblos",
+      "id": 94,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/94.png",
+      "stats": {
+        "top": 8,
+        "left": 7,
+        "right": 4,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Haurchefant",
+      "id": 95,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/95.png",
+      "stats": {
+        "top": 7,
+        "left": 8,
+        "right": 1,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Vedrfolnir",
+      "id": 108,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/108.png",
+      "stats": {
+        "top": 8,
+        "left": 4,
+        "right": 2,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Coeurlregina",
+      "id": 109,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/109.png",
+      "stats": {
+        "top": 5,
+        "left": 8,
+        "right": 5,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Progenitrix",
+      "id": 110,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/110.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 6,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Belladonna",
+      "id": 111,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/111.png",
+      "stats": {
+        "top": 3,
+        "left": 7,
+        "right": 7,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Echidna",
+      "id": 112,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/112.png",
+      "stats": {
+        "top": 6,
+        "left": 4,
+        "right": 4,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Pipin Tarupin",
+      "id": 113,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/113.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 5,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Julyan Manderville",
+      "id": 114,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/114.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 6,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Moglin",
+      "id": 115,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/115.png",
+      "stats": {
+        "top": 8,
+        "left": 5,
+        "right": 5,
+        "bottom": 4
+      },
+      "type": 3
+    },
+    {
+      "name": "Charibert",
+      "id": 116,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/116.png",
+      "stats": {
+        "top": 7,
+        "left": 3,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Roundrox",
+      "id": 117,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/117.png",
+      "stats": {
+        "top": 2,
+        "left": 8,
+        "right": 2,
+        "bottom": 8
+      },
+      "type": 3
+    },
+    {
+      "name": "Brachiosaur",
+      "id": 123,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/123.png",
+      "stats": {
+        "top": 8,
+        "left": 4,
+        "right": 4,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Darkscale",
+      "id": 124,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/124.png",
+      "stats": {
+        "top": 2,
+        "left": 7,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Fenrir",
+      "id": 125,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/125.png",
+      "stats": {
+        "top": 7,
+        "left": 4,
+        "right": 3,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Kraken",
+      "id": 126,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/126.png",
+      "stats": {
+        "top": 3,
+        "left": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Vicegerent to the Warden",
+      "id": 127,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/127.png",
+      "stats": {
+        "top": 7,
+        "left": 5,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Manxome Molaa Ja Ja",
+      "id": 128,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/128.png",
+      "stats": {
+        "top": 3,
+        "left": 8,
+        "right": 7,
+        "bottom": 2
+      },
+      "type": 3
+    },
+    {
+      "name": "Ferdiad",
+      "id": 129,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/129.png",
+      "stats": {
+        "top": 4,
+        "left": 4,
+        "right": 6,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Calcabrina",
+      "id": 130,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/130.png",
+      "stats": {
+        "top": 6,
+        "left": 3,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Kuribu",
+      "id": 131,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/131.png",
+      "stats": {
+        "top": 8,
+        "left": 7,
+        "right": 3,
+        "bottom": 2
+      },
+      "type": 0
+    },
+    {
+      "name": "Phlegethon",
+      "id": 132,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/132.png",
+      "stats": {
+        "top": 1,
+        "left": 7,
+        "right": 7,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Artoirel de Fortemps",
+      "id": 133,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/133.png",
+      "stats": {
+        "top": 4,
+        "left": 7,
+        "right": 7,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Emmanellain de Fortemps",
+      "id": 134,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/134.png",
+      "stats": {
+        "top": 7,
+        "left": 3,
+        "right": 4,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Kal Myhk",
+      "id": 146,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/146.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Waukkeon",
+      "id": 147,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/147.png",
+      "stats": {
+        "top": 1,
+        "left": 7,
+        "right": 6,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Curator",
+      "id": 148,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/148.png",
+      "stats": {
+        "top": 4,
+        "left": 7,
+        "right": 6,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Mistbeard",
+      "id": 149,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/149.png",
+      "stats": {
+        "top": 5,
+        "left": 6,
+        "right": 6,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Strix",
+      "id": 161,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/161.png",
+      "stats": {
+        "top": 5,
+        "left": 7,
+        "right": 7,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Tozol Huatotl",
+      "id": 162,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/162.png",
+      "stats": {
+        "top": 7,
+        "left": 2,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 3
+    },
+    {
+      "name": "Alexander Prime",
+      "id": 163,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/163.png",
+      "stats": {
+        "top": 7,
+        "left": 8,
+        "right": 3,
+        "bottom": 2
+      },
+      "type": 1
+    },
+    {
+      "name": "Brendt, Brennan, & Bremondt",
+      "id": 164,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/164.png",
+      "stats": {
+        "top": 4,
+        "left": 5,
+        "right": 7,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Lava Scorpion",
+      "id": 174,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/174.png",
+      "stats": {
+        "top": 3,
+        "left": 5,
+        "right": 8,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Magitek Predator",
+      "id": 175,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/175.png",
+      "stats": {
+        "top": 5,
+        "left": 5,
+        "right": 7,
+        "bottom": 4
+      },
+      "type": 4
+    },
+    {
+      "name": "Magitek Sky Armor",
+      "id": 176,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/176.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 2,
+        "bottom": 6
+      },
+      "type": 4
+    },
+    {
+      "name": "The Griffin",
+      "id": 177,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/177.png",
+      "stats": {
+        "top": 8,
+        "left": 1,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Roland",
+      "id": 178,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/178.png",
+      "stats": {
+        "top": 2,
+        "left": 3,
+        "right": 7,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Mammoth",
+      "id": 188,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/188.png",
+      "stats": {
+        "top": 6,
+        "left": 3,
+        "right": 3,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Phoebad",
+      "id": 189,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/189.png",
+      "stats": {
+        "top": 8,
+        "left": 1,
+        "right": 8,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Susano",
+      "id": 190,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/190.png",
+      "stats": {
+        "top": 2,
+        "left": 8,
+        "right": 8,
+        "bottom": 3
+      },
+      "type": 1
+    },
+    {
+      "name": "Lakshmi",
+      "id": 191,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/191.png",
+      "stats": {
+        "top": 3,
+        "left": 5,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 1
+    },
+    {
+      "name": "Grynewaht",
+      "id": 192,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/192.png",
+      "stats": {
+        "top": 7,
+        "left": 4,
+        "right": 4,
+        "bottom": 7
+      },
+      "type": 4
+    },
+    {
+      "name": "Rasho",
+      "id": 193,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/193.png",
+      "stats": {
+        "top": 4,
+        "left": 2,
+        "right": 7,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Cirina",
+      "id": 194,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/194.png",
+      "stats": {
+        "top": 3,
+        "left": 8,
+        "right": 5,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Magnai",
+      "id": 195,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/195.png",
+      "stats": {
+        "top": 6,
+        "left": 4,
+        "right": 7,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Sadu",
+      "id": 196,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/196.png",
+      "stats": {
+        "top": 6,
+        "left": 4,
+        "right": 6,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Hrodric Poisontongue",
+      "id": 206,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/206.png",
+      "stats": {
+        "top": 2,
+        "left": 7,
+        "right": 7,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Fordola rem Lupis",
+      "id": 207,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/207.png",
+      "stats": {
+        "top": 5,
+        "left": 3,
+        "right": 8,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Rofocale",
+      "id": 208,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/208.png",
+      "stats": {
+        "top": 4,
+        "left": 8,
+        "right": 7,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Genbu",
+      "id": 215,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/215.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 7,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Byakko",
+      "id": 216,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/216.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Arenvald Lentinus",
+      "id": 217,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/217.png",
+      "stats": {
+        "top": 8,
+        "left": 2,
+        "right": 4,
+        "bottom": 8
+      },
+      "type": 2
+    },
+    {
+      "name": "Lupin",
+      "id": 218,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/218.png",
+      "stats": {
+        "top": 3,
+        "left": 7,
+        "right": 3,
+        "bottom": 8
+      },
+      "type": 3
+    },
+    {
+      "name": "Qitian Dasheng",
+      "id": 224,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/224.png",
+      "stats": {
+        "top": 3,
+        "left": 8,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Hiruko",
+      "id": 225,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/225.png",
+      "stats": {
+        "top": 4,
+        "left": 7,
+        "right": 7,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Happy Bunny",
+      "id": 226,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/226.png",
+      "stats": {
+        "top": 3,
+        "left": 3,
+        "right": 8,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Louhi",
+      "id": 227,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/227.png",
+      "stats": {
+        "top": 5,
+        "left": 7,
+        "right": 8,
+        "bottom": 2
+      },
+      "type": 0
+    },
+    {
+      "name": "Tokkapchi",
+      "id": 233,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/233.png",
+      "stats": {
+        "top": 2,
+        "left": 7,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Mist Dragon",
+      "id": 234,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/234.png",
+      "stats": {
+        "top": 5,
+        "left": 5,
+        "right": 8,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Suzaku",
+      "id": 235,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/235.png",
+      "stats": {
+        "top": 1,
+        "left": 7,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Pazuzu",
+      "id": 236,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/236.png",
+      "stats": {
+        "top": 4,
+        "left": 7,
+        "right": 8,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Penthesilea",
+      "id": 237,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/237.png",
+      "stats": {
+        "top": 7,
+        "left": 5,
+        "right": 2,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Asahi sas Brutus",
+      "id": 238,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/238.png",
+      "stats": {
+        "top": 8,
+        "left": 8,
+        "right": 4,
+        "bottom": 1
+      },
+      "type": 4
+    },
+    {
+      "name": "Prometheus",
+      "id": 244,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/244.png",
+      "stats": {
+        "top": 6,
+        "left": 3,
+        "right": 5,
+        "bottom": 8
+      },
+      "type": 4
+    },
+    {
+      "name": "Provenance Watcher",
+      "id": 245,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/245.png",
+      "stats": {
+        "top": 7,
+        "left": 8,
+        "right": 4,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Seiryu",
+      "id": 246,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/246.png",
+      "stats": {
+        "top": 7,
+        "left": 1,
+        "right": 7,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Alpha",
+      "id": 247,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/247.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Philia",
+      "id": 260,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/260.png",
+      "stats": {
+        "top": 2,
+        "left": 6,
+        "right": 6,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Titania",
+      "id": 261,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/261.png",
+      "stats": {
+        "top": 8,
+        "left": 2,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Eros",
+      "id": 262,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/262.png",
+      "stats": {
+        "top": 6,
+        "left": 8,
+        "right": 2,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Storge",
+      "id": 263,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/263.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 8,
+        "bottom": 2
+      },
+      "type": 0
+    },
+    {
+      "name": "Formidable",
+      "id": 264,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/264.png",
+      "stats": {
+        "top": 8,
+        "left": 5,
+        "right": 5,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Lyna",
+      "id": 265,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/265.png",
+      "stats": {
+        "top": 1,
+        "left": 3,
+        "right": 8,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Jongleurs of Eulmore",
+      "id": 266,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/266.png",
+      "stats": {
+        "top": 4,
+        "left": 6,
+        "right": 4,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Leannan Sith",
+      "id": 278,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/278.png",
+      "stats": {
+        "top": 8,
+        "left": 4,
+        "right": 7,
+        "bottom": 2
+      },
+      "type": 0
+    },
+    {
+      "name": "Seeker of Solitude",
+      "id": 279,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/279.png",
+      "stats": {
+        "top": 4,
+        "left": 8,
+        "right": 6,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Batsquatch",
+      "id": 287,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/287.png",
+      "stats": {
+        "top": 6,
+        "left": 6,
+        "right": 2,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Forgiven Obscenity",
+      "id": 288,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/288.png",
+      "stats": {
+        "top": 8,
+        "left": 6,
+        "right": 7,
+        "bottom": 1
+      },
+      "type": 0
+    },
+    {
+      "name": "Huaca",
+      "id": 289,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/289.png",
+      "stats": {
+        "top": 7,
+        "left": 2,
+        "right": 5,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Unknown",
+      "id": 290,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/290.png",
+      "stats": {
+        "top": 5,
+        "left": 8,
+        "right": 6,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Lugus",
+      "id": 297,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/297.png",
+      "stats": {
+        "top": 5,
+        "left": 7,
+        "right": 4,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Dawon",
+      "id": 298,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/298.png",
+      "stats": {
+        "top": 8,
+        "left": 6,
+        "right": 4,
+        "bottom": 6
+      },
+      "type": 4
+    },
+    {
+      "name": "Adrammelech",
+      "id": 299,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/299.png",
+      "stats": {
+        "top": 6,
+        "left": 8,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Trinity Seeker",
+      "id": 307,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/307.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 1,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Trinity Avowed",
+      "id": 308,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/308.png",
+      "stats": {
+        "top": 8,
+        "left": 1,
+        "right": 7,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Azulmagia",
+      "id": 309,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/309.png",
+      "stats": {
+        "top": 4,
+        "left": 6,
+        "right": 8,
+        "bottom": 6
+      },
+      "type": 0
+    },
+    {
+      "name": "Siegfried",
+      "id": 310,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/310.png",
+      "stats": {
+        "top": 6,
+        "left": 8,
+        "right": 6,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Gogo, Master of Mimicry",
+      "id": 311,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/311.png",
+      "stats": {
+        "top": 8,
+        "left": 6,
+        "right": 6,
+        "bottom": 4
+      },
+      "type": 0
+    },
+    {
+      "name": "Lunar Bahamut",
+      "id": 318,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/318.png",
+      "stats": {
+        "top": 8,
+        "left": 4,
+        "right": 2,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Valens van Varro",
+      "id": 319,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/319.png",
+      "stats": {
+        "top": 7,
+        "left": 3,
+        "right": 5,
+        "bottom": 8
+      },
+      "type": 4
+    },
+    {
+      "name": "Lunar Ifrit",
+      "id": 320,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/320.png",
+      "stats": {
+        "top": 8,
+        "left": 7,
+        "right": 3,
+        "bottom": 4
+      },
+      "type": 1
+    },
+    {
+      "name": "4th-make Shemhazai",
+      "id": 321,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/321.png",
+      "stats": {
+        "top": 1,
+        "left": 8,
+        "right": 6,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "4th-make Cuchulainn",
+      "id": 322,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/322.png",
+      "stats": {
+        "top": 8,
+        "left": 6,
+        "right": 1,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Hermes",
+      "id": 333,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/333.png",
+      "stats": {
+        "top": 6,
+        "left": 1,
+        "right": 8,
+        "bottom": 7
+      },
+      "type": 0
+    },
+    {
+      "name": "Amon the Undying",
+      "id": 334,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/334.png",
+      "stats": {
+        "top": 8,
+        "left": 3,
+        "right": 7,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Erichthonios",
+      "id": 335,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/335.png",
+      "stats": {
+        "top": 5,
+        "left": 6,
+        "right": 8,
+        "bottom": 5
+      },
+      "type": 0
+    },
+    {
+      "name": "Magus Sisters",
+      "id": 336,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/336.png",
+      "stats": {
+        "top": 4,
+        "left": 8,
+        "right": 1,
+        "bottom": 8
+      },
+      "type": 1
+    },
+    {
+      "name": "Meteion",
+      "id": 337,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/337.png",
+      "stats": {
+        "top": 7,
+        "left": 6,
+        "right": 1,
+        "bottom": 8
+      },
+      "type": 0
+    },
+    {
+      "name": "Fourchenault Leveilleur",
+      "id": 338,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/338.png",
+      "stats": {
+        "top": 7,
+        "left": 7,
+        "right": 7,
+        "bottom": 3
+      },
+      "type": 0
+    },
+    {
+      "name": "Rhalgr",
+      "id": 350,
+      "stars": 3,
+      "image": "https://triad.raelys.com/images/cards/large/350.png",
+      "stats": {
+        "top": 6,
+        "left": 7,
+        "right": 8,
+        "bottom": 1
+      },
+      "type": 0
+    }
+  ]
+}

@@ -47,6 +47,7 @@ class Card(dict):
 class History(dict):
     cards_played = []
     first_player: PlayerColor
+    boards = []
 
 
 class Board:
@@ -66,11 +67,15 @@ class Board:
         self.turns_played = 0
         self.history = History(
             cards_played=[],
-            first_player=first_player,
+            first_player=first_player.name,
+            boards=[],
         )
 
     def play_turn(self, card, pos_x, pos_y):
         if self.board[pos_x][pos_y] is None:
+            if self.save_history:
+                self.update_history(card, pos_x, pos_y)
+
             custom_id = f"{card['id']}{self.get_current_player().name}"
             card["custom_id"] = card.get("custom_id", custom_id)
             for i in range(0, self.types_updated.get(card["type"], 0)):
@@ -82,6 +87,9 @@ class Board:
             self.maybe_rules_multiple_takes(neighbors, card)
             self.end_turn(card)
         else:
+            print(f"{pos_x}, {pos_x}, {card}")
+            print(self.board)
+            self.print()
             raise Exception("This cell is already taken by another card")
 
     def get_available_positions(self):
@@ -94,15 +102,14 @@ class Board:
         return available_positions
 
     def _play_card(self, card, pos_x, pos_y):
-        self.board[pos_x][pos_y] = {"card": card, "color": self.current_player}
+        self.board[pos_x][pos_y] = {"card": card, "color": self.current_player.name}
         neighbors = self.check_if_there_is_any_neighbors(pos_x, pos_y)
         if neighbors:
             self.maybe_take_over_neighbors(card, neighbors)
 
     def maybe_rules_multiple_takes(self, neighbors, card):
-        # if not (Modes.PLUS in self.modes or Modes.SAME in self.modes):
-        #     return
-
+        if not (Modes.PLUS in self.modes or Modes.SAME in self.modes):
+            return
         """
          _______________________
         |       |       |       |
@@ -177,7 +184,7 @@ class Board:
                         self.maybe_update_cell_take_over_rule(cell_2)
 
     def maybe_update_cell_take_over_rule(self, cell):
-        if cell["color"] == self.current_player:
+        if cell["color"] == self.current_player.name:
             return
 
         pos_x, pos_y = self.find_card_position(cell["card"]["custom_id"])
@@ -188,15 +195,8 @@ class Board:
         if self.turns_played == 9:
             self.winner = self.calculate_winner()
 
-        self.current_player = (
-            PlayerColor.RED
-            if self.current_player == PlayerColor.BLUE
-            else PlayerColor.BLUE
-        )
+        self.switch_current_player()
         self.maybe_update_card_values(card["type"])
-
-        if self.save_history:
-            self.update_history(card)
 
     def get_winner(self):
         return self.winner
@@ -211,7 +211,7 @@ class Board:
         cards_to_first_player = 0
         for row in self.board:
             for cell in row:
-                if cell["color"] == self.first_player:
+                if cell["color"] == self.first_player.name:
                     cards_to_first_player += 1
 
         self.game_ended_cards_to_first_player = cards_to_first_player
@@ -227,10 +227,46 @@ class Board:
                 else PlayerColor.BLUE.name
             )
 
-    def update_history(self, card):
-        self.history["cards_played"].append(
-            (card, self.find_card_position(card["custom_id"]))
+    def update_history(self, card, pos_x, pos_y):
+        self.history["cards_played"].append((card, (pos_x, pos_y)))
+
+        tmp_board = [
+            [None, None, None],
+            [None, None, None],
+            [None, None, None],
+        ]
+        for pos_x, row in enumerate(self.board):
+            for pos_y, cell in enumerate(row):
+                if cell:
+                    tmp_board[pos_x][pos_y] = {
+                        "card": Card(
+                            top=cell["card"]["top"],
+                            left=cell["card"]["left"],
+                            right=cell["card"]["right"],
+                            bottom=cell["card"]["bottom"],
+                            id=cell["card"]["id"],
+                            type=cell["card"]["type"],
+                        ),
+                        "color": cell["color"],
+                    }
+
+        self.history["boards"].append(tmp_board)
+
+    def switch_current_player(self):
+        self.current_player = (
+            PlayerColor.BLUE
+            if self.current_player == PlayerColor.RED
+            else PlayerColor.RED
         )
+
+    def undo_move(self):
+        if self.turns_played <= 0:
+            raise Exception("Can't undo move when no move has been registered")
+
+        self.history["cards_played"].pop()
+        self.board = self.history["boards"].pop()
+        self.turns_played -= 1
+        self.switch_current_player()
 
     def get_history(self):
         return self.history
@@ -271,7 +307,7 @@ class Board:
             self.maybe_take_over_neighbor(card, neighbor_position, neighbor_card)
 
     def maybe_take_over_neighbor(self, card, neighbor_position, neighbor_card):
-        if neighbor_card["color"] == self.current_player:
+        if neighbor_card["color"] == self.current_player.name:
             return
 
         card_value = 0
@@ -291,7 +327,7 @@ class Board:
             neighbor_card_value = neighbor_card["card"]["top"]
 
         if self.compare(card_value, neighbor_card_value):
-            neighbor_card["color"] = self.current_player
+            neighbor_card["color"] = self.current_player.name
 
     def compare(self, card_1_value, card_2_value):
         if Modes.REVERSE in self.modes:
@@ -353,7 +389,7 @@ class Board:
             for card in row:
                 if card:
                     top = "A" if card["card"]["top"] == 10 else card["card"]["top"]
-                    color = BLUE if card["color"] == PlayerColor.BLUE else RED
+                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
                     print(f"| {' '} {color}{top} {' '} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -366,7 +402,7 @@ class Board:
                     right = (
                         "A" if card["card"]["right"] == 10 else card["card"]["right"]
                     )
-                    color = BLUE if card["color"] == PlayerColor.BLUE else RED
+                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
                     print(f"| {color}{left} {' '} {right} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -378,7 +414,7 @@ class Board:
                     bottom = (
                         "A" if card["card"]["bottom"] == 10 else card["card"]["bottom"]
                     )
-                    color = BLUE if card["color"] == PlayerColor.BLUE else RED
+                    color = BLUE if card["color"] == PlayerColor.BLUE.name else RED
                     print(f"|_{'_'}_{color}{bottom}{DEFAULT}_{'_'}_", end="")
                 else:
                     print("|_______", end="")
