@@ -70,11 +70,49 @@ class Card:
 
         self.game_id = f"{self.card_id}{color}"
 
+    def ascend(self):
+        self.top = min(10, self.top + 1)
+        self.bottom = min(10, self.bottom + 1)
+        self.left = min(10, self.left + 1)
+        self.right = min(10, self.right + 1)
+
+    def descend(self):
+        self.top = max(1, self.top - 1)
+        self.bottom = max(1, self.bottom - 1)
+        self.left = max(1, self.left - 1)
+        self.right = max(1, self.right - 1)
+
     def get_game_id(self):
         return self.game_id
 
     def get_type(self):
         return self.card_type
+
+    def get_direction(self, direction):
+        match direction:
+            case "top":
+                return self.top
+            case "bottom":
+                return self.bottom
+            case "left":
+                return self.left
+            case "right":
+                return self.right
+
+        raise Exception(f"Could not match '{direction}' to any direction")
+
+    def get_opposite_direction(self, direction):
+        match direction:
+            case "top":
+                return self.bottom
+            case "bottom":
+                return self.top
+            case "left":
+                return self.right
+            case "right":
+                return self.left
+
+        raise Exception(f"Could not match '{direction}' to any direction")
 
 
 class History(dict):
@@ -115,7 +153,7 @@ class Board:
         self.turns_played = 0
         self.history = History(
             cards_played=[],
-            first_player=first_player.name,
+            first_player=first_player,
             boards=[],
         )
 
@@ -222,10 +260,17 @@ class Board:
             if cell_1 := neighbors.get(comparison["neighbor1"]):
                 if cell_2 := neighbors.get(comparison["neighbor2"]):
                     if self.compare_rule(
-                        card[comparison["neighbor1"]],
-                        cell_1["card"][comparison["neighbor1_comparison"]],
-                        card[comparison["neighbor2"]],
-                        cell_2["card"][comparison["neighbor2_comparison"]],
+                        card.get_direction(comparison["neighbor1"]),
+                        cell_1.get_card().get_opposite_direction(
+                            comparison["neighbor1"]
+                        ),
+                        # cell_1.get_card()[comparison["neighbor1"]],
+                        card.get_direction(comparison["neighbor2"]),
+                        # card[comparison["neighbor2"]],
+                        cell_2.get_card().get_opposite_direction(
+                            comparison["neighbor2"]
+                        ),
+                        # cell_2.get_card()[comparison["neighbor2_comparison"]],
                     ):
                         self.maybe_update_cell_take_over_rule(cell_1)
                         self.maybe_update_cell_take_over_rule(cell_2)
@@ -265,14 +310,14 @@ class Board:
         self.game_ended_cards_to_first_player = cards_to_first_player
 
         if cards_to_first_player > 5:
-            return self.first_player.name
+            return self.first_player
         elif cards_to_first_player == 5:
             return DRAW
         else:
             return (
-                PlayerColor.RED.name
+                PlayerColor.RED
                 if self.first_player == PlayerColor.BLUE
-                else PlayerColor.BLUE.name
+                else PlayerColor.BLUE
             )
 
     def update_history(self, card, pos_x, pos_y):
@@ -368,7 +413,7 @@ class Board:
             neighbor_card_value = neighbor_card.get_card().top
 
         if self.compare(card_value, neighbor_card_value):
-            neighbor_card.color = self.current_player.name
+            neighbor_card.color = self.current_player
 
     def compare(self, card_1_value, card_2_value):
         if Modes.REVERSE in self.modes:
@@ -396,27 +441,23 @@ class Board:
         for row in self.board:
             for cell in row:
                 if cell:
-                    card = cell["card"]
-                    if card["type"] == card_type:
+                    card = cell.get_card()
+                    if card.card_type == card_type:
                         self.update_card_values(card)
 
         self.types_updated[card_type] = self.types_updated.get(card_type, 0) + 1
 
     def update_card_values(self, card):
-        values = ["top", "left", "right", "bottom"]
-
         if Modes.ASCENSION in self.modes:
-            for value in values:
-                card[value] = min(10, card[value] + 1)
+            card.ascend()
         elif Modes.DESCENSION in self.modes:
-            for value in values:
-                card[value] = max(1, card[value] - 1)
+            card.descend()
 
     def find_card_position(self, card_game_id):
         for pos_x, row in enumerate(self.board):
             for pos_y, cell in enumerate(row):
                 if cell:
-                    if cell.get_card()["card_game_id"] == card_game_id:
+                    if cell.get_card().game_id == card_game_id:
                         return pos_x, pos_y
 
     def get_cell_information_on_position(self, pos_x, pos_y):
@@ -431,7 +472,7 @@ class Board:
             for cell in row:
                 if cell:
                     top = "A" if cell.get_card().top == 10 else cell.get_card().top
-                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE else RED
                     print(f"| {' '} {color}{top} {' '} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -444,7 +485,7 @@ class Board:
                     right = (
                         "A" if cell.get_card().right == 10 else cell.get_card().right
                     )
-                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE else RED
                     print(f"| {color}{left} {' '} {right} {DEFAULT}", end="")
                 else:
                     print("|       ", end="")
@@ -456,7 +497,7 @@ class Board:
                     bottom = (
                         "A" if cell.get_card().bottom == 10 else cell.get_card().bottom
                     )
-                    color = BLUE if cell.get_color() == PlayerColor.BLUE.name else RED
+                    color = BLUE if cell.get_color() == PlayerColor.BLUE else RED
                     print(f"|_{'_'}_{color}{bottom}{DEFAULT}_{'_'}_", end="")
                 else:
                     print("|_______", end="")
@@ -468,7 +509,9 @@ class Board:
         for height, row in enumerate(self.board):
             for width, cell in enumerate(row):
                 if cell:
-                    card_image = cv2.imread(f"assets/images/{cell['card']['id']}.png")
+                    card_image = cv2.imread(
+                        f"assets/images/{cell.get_card().card_id}.png"
+                    )
 
                     if cell.get_color() == PlayerColor.BLUE:
                         card_image = np.power(card_image, [1.3, 1.0, 1.0])

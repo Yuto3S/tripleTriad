@@ -47,8 +47,8 @@ def low_card():
         left=LOW_VALUE,
         right=LOW_VALUE,
         bottom=LOW_VALUE,
-        id=0,
-        type=0,
+        card_id=0,
+        card_type=0,
     )
 
 
@@ -59,8 +59,8 @@ def medium_card():
         left=MEDIUM_VALUE,
         right=MEDIUM_VALUE,
         bottom=MEDIUM_VALUE,
-        id=1,
-        type=0,
+        card_id=1,
+        card_type=0,
     )
 
 
@@ -71,8 +71,8 @@ def high_card():
         left=HIGH_VALUE,
         right=HIGH_VALUE,
         bottom=HIGH_VALUE,
-        id=2,
-        type=0,
+        card_id=2,
+        card_type=0,
     )
 
 
@@ -148,7 +148,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(low_card, *card_position)
         self.board.play_turn(high_card, *second_card_position)
         assert (
-            self.board.get_cell_information_on_position(*card_position)["color"]
+            self.board.get_cell_information_on_position(*card_position).get_color()
             == self.second_player
         )
 
@@ -160,7 +160,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(copy.deepcopy(low_card), *blue_card_positions[1])
         for blue_position in blue_card_positions:
             assert (
-                self.board.get_cell_information_on_position(*blue_position)["color"]
+                self.board.get_cell_information_on_position(*blue_position).get_color()
                 == self.first_player
             )
 
@@ -168,7 +168,7 @@ class TestCardTakesOverNeighbor(TestBoard):
 
         for blue_position in blue_card_positions:
             assert (
-                self.board.get_cell_information_on_position(*blue_position)["color"]
+                self.board.get_cell_information_on_position(*blue_position).get_color()
                 == self.second_player
             )
 
@@ -177,7 +177,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(copy.deepcopy(high_card), 1, 1)
         self.board.play_turn(copy.deepcopy(high_card), 0, 1)
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.first_player
         )
 
@@ -189,7 +189,7 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(low_card), 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.second_player
         )
 
@@ -199,7 +199,7 @@ class TestRules(TestBoard):
         self.board.play_turn(low_card, 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.second_player
         )
 
@@ -209,7 +209,7 @@ class TestRules(TestBoard):
         self.board.play_turn(low_card, 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.first_player
         )
 
@@ -221,19 +221,19 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(high_card), *card1_pos)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
         high_card_2 = copy.deepcopy(high_card)
-        high_card_2["id"] = "22"
+        high_card_2.card_id = "22"
         self.board.play_turn(high_card_2, *card2_pos)
 
         high_card_3 = copy.deepcopy(high_card)
-        high_card_3["id"] = "33"
+        high_card_3.card_id = "33"
         self.board.play_turn(high_card_3, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos)["color"]
+            self.board.get_cell_information_on_position(*card1_pos).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos)["color"]
+            self.board.get_cell_information_on_position(*card2_pos).get_color()
             == self.second_player
         )
 
@@ -244,19 +244,19 @@ class TestRules(TestBoard):
         self.board = Board(first_player=self.first_player, modes=[Modes.SAME])
         self.board.play_turn(copy.deepcopy(high_card), *card1_pos)
         high_card2 = copy.deepcopy(high_card)
-        high_card2["id"] = "22"
+        high_card2.card_id = "22"
         self.board.play_turn(high_card2, *card2_pos)
 
         high_card3 = copy.deepcopy(high_card)
-        high_card3["id"] = "33"
+        high_card3.card_id = "33"
         self.board.play_turn(high_card3, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos)["color"]
+            self.board.get_cell_information_on_position(*card1_pos).get_color()
             == self.first_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos)["color"]
+            self.board.get_cell_information_on_position(*card2_pos).get_color()
             == self.first_player
         )
 
@@ -269,19 +269,19 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
 
         high_card2 = copy.deepcopy(high_card)
-        high_card2["id"] = "22"
+        high_card2.card_id = "22"
         self.board.play_turn(high_card2, *card2_pos)
 
         medium_card2 = copy.deepcopy(medium_card)
-        medium_card2["id"] = "12"
+        medium_card2.card_id = "12"
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos)["color"]
+            self.board.get_cell_information_on_position(*card1_pos).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos)["color"]
+            self.board.get_cell_information_on_position(*card2_pos).get_color()
             == self.second_player
         )
 
@@ -290,27 +290,27 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(high_card), 1, 2)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
         high_card2 = copy.deepcopy(high_card)
-        high_card2["id"] = "22"
+        high_card2.card_id = "22"
         self.board.play_turn(high_card2, 1, 0)
 
         medium_card2 = copy.deepcopy(medium_card)
-        medium_card2["id"] = "12"
+        medium_card2.card_id = "12"
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(0, 0)["color"]
+            self.board.get_cell_information_on_position(0, 0).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 0)["color"]
+            self.board.get_cell_information_on_position(1, 0).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 2)["color"]
+            self.board.get_cell_information_on_position(1, 2).get_color()
             == self.second_player
         )
 
@@ -325,11 +325,11 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(medium_card), 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos)["color"]
+            self.board.get_cell_information_on_position(*card1_pos).get_color()
             == self.first_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos)["color"]
+            self.board.get_cell_information_on_position(*card2_pos).get_color()
             == self.first_player
         )
 
@@ -338,140 +338,140 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(high_card), 1, 2)
         self.board.play_turn(copy.deepcopy(medium_card), 0, 0)
         high_card2 = copy.deepcopy(high_card)
-        high_card2["id"] = "22"
+        high_card2.card_id = "22"
         self.board.play_turn(high_card2, 1, 0)
 
         medium_card2 = copy.deepcopy(medium_card)
-        medium_card2["id"] = "12"
+        medium_card2.card_id = "12"
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(0, 0)["color"]
+            self.board.get_cell_information_on_position(0, 0).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 0)["color"]
+            self.board.get_cell_information_on_position(1, 0).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 1)["color"]
+            self.board.get_cell_information_on_position(1, 1).get_color()
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 2)["color"]
+            self.board.get_cell_information_on_position(1, 2).get_color()
             == self.second_player
         )
 
     def test_ascension_increases_value(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.ASCENSION])
         custom_card = copy.deepcopy(medium_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == medium_card["top"] + 1
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == medium_card.top + 1
         )
 
     def test_ascension_increases_value_for_other_card_played_too(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.ASCENSION])
         custom_card = copy.deepcopy(medium_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
         custom_card2 = copy.deepcopy(medium_card)
-        custom_card2["type"] = 1
+        custom_card2.card_type = 1
         self.board.play_turn(custom_card2, 0, 1)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 1)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 1).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == medium_card["top"] + 2
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == medium_card.top + 2
         )
 
     def test_ascension_does_not_go_above_10(self, high_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.ASCENSION])
         custom_card = copy.deepcopy(high_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == high_card["top"]
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == high_card.top
         )
 
     def test_descension_decreases_value(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.DESCENSION])
         custom_card = copy.deepcopy(medium_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == medium_card["top"] - 1
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == medium_card.top - 1
         )
 
     def test_descension_decreases_value_for_other_card_played_too(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.DESCENSION])
         custom_card = copy.deepcopy(medium_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
         custom_card2 = copy.deepcopy(medium_card)
-        custom_card2["type"] = 1
+        custom_card2.card_type = 1
         self.board.play_turn(custom_card2, 0, 1)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 1)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 1).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == medium_card["top"] - 2
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == medium_card.top - 2
         )
 
     def test_descension_does_not_go_below_1(self, low_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.DESCENSION])
         custom_card = copy.deepcopy(low_card)
-        custom_card["type"] = 1
+        custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
-            == low_card["top"]
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == low_card.top
         )
 
     def test_card_with_type_does_not_change_if_no_modes(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[])
         custom_card = copy.deepcopy(medium_card)
-        custom_card["type"] = 1
+        custom_card.type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0)["card"]
+        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
         assert (
-            card_on_board["top"]
-            == card_on_board["bottom"]
-            == card_on_board["left"]
-            == card_on_board["right"]
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
             == MEDIUM_VALUE
         )
 
@@ -514,7 +514,7 @@ class TestCalculateWinner(TestBoard):
 
             index += 1
 
-        assert self.board.get_winner() == first_player.name
+        assert self.board.get_winner() == first_player
 
     @pytest.mark.parametrize(
         "first_player, second_player",
@@ -531,7 +531,7 @@ class TestCalculateWinner(TestBoard):
 
             index += 1
 
-        assert self.board.get_winner() == second_player.name
+        assert self.board.get_winner() == second_player
 
 
 class TestHistory(TestBoard):
@@ -543,6 +543,7 @@ class TestHistory(TestBoard):
         assert self.board.get_history() == History(
             cards_played=[],
             first_player=self.first_player,
+            boards=[],
         )
 
     def test_save_history(self, high_card, medium_card, low_card):
@@ -556,7 +557,7 @@ class TestHistory(TestBoard):
             else:
                 card = copy.deepcopy(low_card)
 
-            card["id"] = uuid4()
+            card.card_id = uuid4()
             self.board.play_turn(card, *position)
 
             counter += 1
@@ -575,11 +576,12 @@ class TestHistory(TestBoard):
                 (medium_card, ALL_POSITIONS[8]),
             ],
             first_player=self.first_player,
+            boards=[],
         )
 
         for card_played in expected_history["cards_played"]:
-            card_played[0]["custom_id"] = mock.ANY
-            card_played[0]["id"] = mock.ANY
+            card_played[0].game_id = mock.ANY
+            card_played[0].card_id = mock.ANY
 
         assert history == expected_history
 
@@ -599,7 +601,7 @@ class TestHistory(TestBoard):
                     copy.deepcopy(high_card),
                 ]
             )
-            card["id"] = uuid4()
+            card.card_id = uuid4()
             self.board.play_turn(card, *position)
 
         history = self.board.get_history()
