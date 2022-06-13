@@ -1,106 +1,98 @@
-from game_triple_triad import Board
+from typing import NamedTuple
+from typing import Tuple
+
 from game_triple_triad import Card
-from game_triple_triad import DRAW
 from game_triple_triad import PlayerColor
+
+CORNER_DIRECTIONS_POSITIONS = [
+    ("right", "bottom", 0),
+    ("left", "bottom", 2),
+    ("right", "top", 6),
+    ("left", "top", 8),
+]
 
 
 class Player(dict):
     color: PlayerColor
     cards: list[Card]
+    cards_played = list[Card]
+
+
+class Move(NamedTuple):
+    card: Card
+    position: Tuple
 
 
 def endgame_heuristic(board, player):
     winner = board.get_winner()
-    if winner == player["color"].name:
-        return 1000, board.get_history()
-    elif winner == DRAW:
-        return 333, board.get_history()
+
+    if winner == player["color"]:
+        return 1000
+    elif winner is None:  # DRAW
+        return 0
     else:
-        return -1000, board.get_history()
+        return -1000
 
 
-def negamax_new_and_replay(
-    board, current_player, next_player, alpha, beta, depth, color
-):
-    if depth <= 0 or board.get_turns_played() == 9:
-        value, history = endgame_heuristic(board, current_player)
-        return color * value, history
+def estimate_best_move_empty_board(current_player):
+    best_move = None
+    best_move_value = 0
 
-    history = None
-    value = -1000
-
-    for index in range(0, len(current_player["cards"])):
-        card = current_player["cards"].pop()
-        for position in board.get_available_positions():
-            child_board = Board(
-                first_player=board.get_history()["first_player"],
-                modes=[board.get_modes()],
-                save_history=True,
-            )
-            for card_played in board.get_history()["cards_played"]:
-                child_board.play_turn(card_played[0], *card_played[1])
-
-            child_board.play_turn(card, *position)
-
-            child_value, child_history = negamax_new_and_replay(
-                child_board,
-                next_player,
-                current_player,
-                -beta,
-                -alpha,
-                depth - 1,
-                -color,
-            )
-            child_value = color * child_value
-            if child_value > value:
-                value = child_value
-                history = child_history
-
-            alpha = max(alpha, value)
-            if alpha >= beta:
-                # print(f"cut, {index}, {alpha}, {beta}, {position}")
-                # current_player["cards"] = [card] + current_player["cards"]
+    for card in current_player["cards"]:
+        for corner in CORNER_DIRECTIONS_POSITIONS:
+            if card.get_direction(corner[0]) > 8 or card.get_direction(corner[1]) > 8:
                 break
 
-        current_player["cards"] = [card] + current_player["cards"]
+            corner_value = card.get_direction(corner[0]) + card.get_direction(corner[1])
+            if corner_value > best_move_value:
+                best_move_value = corner_value
+                best_move = Move(card=card, position=corner[2])
 
-    return value, history
+    print(f"estimate_best_move_empty_board {best_move}")
+
+    return best_move
 
 
-def negamax_undo(board, current_player, next_player, alpha, beta, depth, color):
-    if depth <= 0 or board.get_turns_played() == 9:
-        value, history = endgame_heuristic(board, current_player)
-        return color * value, history
+def negamax(board, current_player, next_player, alpha, beta, color):
+    if any(board.get_board()):
+        return negamax_undo(board, current_player, next_player, alpha, beta, color)
 
-    history = None
-    value = -10000
+    best_move = estimate_best_move_empty_board(current_player)
+    return 0, best_move
+
+
+def negamax_undo(board, current_player, next_player, alpha, beta, color):
+    heuristic = -10000
+    best_move = None
+
+    if all(board.get_board()):
+        heuristic = endgame_heuristic(board, next_player)
+        return color * heuristic, best_move
 
     for index in range(0, len(current_player["cards"])):
         card = current_player["cards"].pop()
         for position in board.get_available_positions():
-            board.play_turn(card, *position)
-            child_value, child_history = negamax_undo(
+            board.play_turn(card, position // 3, position % 3)
+            recursive_heuristic, _ = negamax_undo(
                 board,
                 next_player,
                 current_player,
                 -beta,
                 -alpha,
-                depth - 1,
                 -color,
             )
 
-            child_value = color * child_value
-            if child_value >= value:
-                value = child_value
-                # Verify if history gets updated when child_history changes
-                history = child_history
+            recursive_heuristic = -1 * recursive_heuristic
+            if recursive_heuristic > heuristic:
+                heuristic = recursive_heuristic
+                best_move = Move(card=card, position=position)
 
             board.undo_move()
 
-            alpha = max(alpha, value)
+            alpha = max(alpha, heuristic)
             if alpha >= beta:
                 break
 
         current_player["cards"] = [card] + current_player["cards"]
 
-    return value, history
+    return heuristic, best_move

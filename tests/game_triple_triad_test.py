@@ -1,13 +1,10 @@
 import copy
-import random
-from unittest import mock
 from uuid import uuid4
 
 import pytest
 
 from game_triple_triad import Board
 from game_triple_triad import Card
-from game_triple_triad import DRAW
 from game_triple_triad import History
 from game_triple_triad import Modes
 from game_triple_triad import PlayerColor
@@ -82,11 +79,7 @@ class TestBoard:
 
     def test_board_init(self):
         board = Board(first_player=self.first_player, modes=[])
-        assert board.board == [
-            [None, None, None],
-            [None, None, None],
-            [None, None, None],
-        ]
+        assert board.board == [None, None, None, None, None, None, None, None, None]
         assert board.current_player == PlayerColor.BLUE
         assert board.modes == []
 
@@ -148,7 +141,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(low_card, *card_position)
         self.board.play_turn(high_card, *second_card_position)
         assert (
-            self.board.get_cell_information_on_position(*card_position).get_color()
+            self.board.get_cell_information_on_position(*card_position).color
             == self.second_player
         )
 
@@ -160,7 +153,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(copy.deepcopy(low_card), *blue_card_positions[1])
         for blue_position in blue_card_positions:
             assert (
-                self.board.get_cell_information_on_position(*blue_position).get_color()
+                self.board.get_cell_information_on_position(*blue_position).color
                 == self.first_player
             )
 
@@ -168,7 +161,7 @@ class TestCardTakesOverNeighbor(TestBoard):
 
         for blue_position in blue_card_positions:
             assert (
-                self.board.get_cell_information_on_position(*blue_position).get_color()
+                self.board.get_cell_information_on_position(*blue_position).color
                 == self.second_player
             )
 
@@ -177,8 +170,7 @@ class TestCardTakesOverNeighbor(TestBoard):
         self.board.play_turn(copy.deepcopy(high_card), 1, 1)
         self.board.play_turn(copy.deepcopy(high_card), 0, 1)
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
-            == self.first_player
+            self.board.get_cell_information_on_position(1, 1).color == self.first_player
         )
 
 
@@ -189,7 +181,7 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(low_card), 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
+            self.board.get_cell_information_on_position(1, 1).color
             == self.second_player
         )
 
@@ -199,7 +191,7 @@ class TestRules(TestBoard):
         self.board.play_turn(low_card, 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
+            self.board.get_cell_information_on_position(1, 1).color
             == self.second_player
         )
 
@@ -209,8 +201,7 @@ class TestRules(TestBoard):
         self.board.play_turn(low_card, 0, 1)
 
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
-            == self.first_player
+            self.board.get_cell_information_on_position(1, 1).color == self.first_player
         )
 
     @pytest.mark.parametrize(*SANDWICH_INFOS)
@@ -229,11 +220,11 @@ class TestRules(TestBoard):
         self.board.play_turn(high_card_3, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos).get_color()
+            self.board.get_cell_information_on_position(*card1_pos).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos).get_color()
+            self.board.get_cell_information_on_position(*card2_pos).color
             == self.second_player
         )
 
@@ -252,11 +243,11 @@ class TestRules(TestBoard):
         self.board.play_turn(high_card3, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos).get_color()
+            self.board.get_cell_information_on_position(*card1_pos).color
             == self.first_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos).get_color()
+            self.board.get_cell_information_on_position(*card2_pos).color
             == self.first_player
         )
 
@@ -277,11 +268,11 @@ class TestRules(TestBoard):
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos).get_color()
+            self.board.get_cell_information_on_position(*card1_pos).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos).get_color()
+            self.board.get_cell_information_on_position(*card2_pos).color
             == self.second_player
         )
 
@@ -298,19 +289,19 @@ class TestRules(TestBoard):
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(0, 0).get_color()
+            self.board.get_cell_information_on_position(0, 0).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 0).get_color()
+            self.board.get_cell_information_on_position(1, 0).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
+            self.board.get_cell_information_on_position(1, 1).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 2).get_color()
+            self.board.get_cell_information_on_position(1, 2).color
             == self.second_player
         )
 
@@ -325,11 +316,11 @@ class TestRules(TestBoard):
         self.board.play_turn(copy.deepcopy(medium_card), 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(*card1_pos).get_color()
+            self.board.get_cell_information_on_position(*card1_pos).color
             == self.first_player
         )
         assert (
-            self.board.get_cell_information_on_position(*card2_pos).get_color()
+            self.board.get_cell_information_on_position(*card2_pos).color
             == self.first_player
         )
 
@@ -346,19 +337,19 @@ class TestRules(TestBoard):
         self.board.play_turn(medium_card2, 1, 1)
 
         assert (
-            self.board.get_cell_information_on_position(0, 0).get_color()
+            self.board.get_cell_information_on_position(0, 0).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 0).get_color()
+            self.board.get_cell_information_on_position(1, 0).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 1).get_color()
+            self.board.get_cell_information_on_position(1, 1).color
             == self.second_player
         )
         assert (
-            self.board.get_cell_information_on_position(1, 2).get_color()
+            self.board.get_cell_information_on_position(1, 2).color
             == self.second_player
         )
 
@@ -368,7 +359,7 @@ class TestRules(TestBoard):
         custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -387,7 +378,7 @@ class TestRules(TestBoard):
         custom_card2.card_type = 1
         self.board.play_turn(custom_card2, 0, 1)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 1).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 1).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -402,7 +393,7 @@ class TestRules(TestBoard):
         custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -417,7 +408,7 @@ class TestRules(TestBoard):
         custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -436,7 +427,7 @@ class TestRules(TestBoard):
         custom_card2.card_type = 1
         self.board.play_turn(custom_card2, 0, 1)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 1).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 1).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -451,7 +442,7 @@ class TestRules(TestBoard):
         custom_card.card_type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -466,7 +457,7 @@ class TestRules(TestBoard):
         custom_card.type = 1
         self.board.play_turn(custom_card, 0, 0)
 
-        card_on_board = self.board.get_cell_information_on_position(0, 0).get_card()
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
         assert (
             card_on_board.top
             == card_on_board.bottom
@@ -497,7 +488,7 @@ class TestCalculateWinner(TestBoard):
         for position in ALL_POSITIONS:
             self.board.play_turn(low_card, *position)
 
-        assert self.board.get_winner() == DRAW
+        assert self.board.get_winner() is None
 
     @pytest.mark.parametrize(
         "first_player, second_player",
@@ -541,7 +532,6 @@ class TestHistory(TestBoard):
             self.board.play_turn(high_card, *position)
 
         assert self.board.get_history() == History(
-            cards_played=[],
             first_player=self.first_player,
             boards=[],
         )
@@ -549,6 +539,7 @@ class TestHistory(TestBoard):
     def test_save_history(self, high_card, medium_card, low_card):
         self.board = Board(first_player=self.first_player, modes=[], save_history=True)
         counter = 0
+        boards = []
         for position in ALL_POSITIONS:
             if not (counter % 3):
                 card = copy.deepcopy(high_card)
@@ -558,58 +549,30 @@ class TestHistory(TestBoard):
                 card = copy.deepcopy(low_card)
 
             card.card_id = uuid4()
+            boards.append(copy.deepcopy(self.board.get_board()))
+
             self.board.play_turn(card, *position)
 
             counter += 1
 
         history = self.board.get_history()
         expected_history = History(
-            cards_played=[
-                (high_card, ALL_POSITIONS[0]),
-                (low_card, ALL_POSITIONS[1]),
-                (medium_card, ALL_POSITIONS[2]),
-                (high_card, ALL_POSITIONS[3]),
-                (medium_card, ALL_POSITIONS[4]),
-                (low_card, ALL_POSITIONS[5]),
-                (high_card, ALL_POSITIONS[6]),
-                (low_card, ALL_POSITIONS[7]),
-                (medium_card, ALL_POSITIONS[8]),
-            ],
             first_player=self.first_player,
-            boards=[],
+            boards=boards,
         )
 
-        for card_played in expected_history["cards_played"]:
-            card_played[0].game_id = mock.ANY
-            card_played[0].card_id = mock.ANY
-
-        assert history == expected_history
-
-    @pytest.mark.parametrize("mode", [mode for mode in Modes])
-    def test_history_can_be_replayed_for_all_modes(
-        self, mode, low_card, medium_card, high_card
-    ):
-        first_player = random.choice([PlayerColor.RED, PlayerColor.BLUE])
-        self.board = Board(first_player=first_player, modes=[mode], save_history=True)
-        random.shuffle(ALL_POSITIONS)
-
-        for position in ALL_POSITIONS:
-            card = random.choice(
-                [
-                    copy.deepcopy(low_card),
-                    copy.deepcopy(medium_card),
-                    copy.deepcopy(high_card),
-                ]
-            )
-            card.card_id = uuid4()
-            self.board.play_turn(card, *position)
-
-        history = self.board.get_history()
-
-        new_board = Board(first_player=history["first_player"], modes=[mode])
-
-        for card_played in history["cards_played"]:
-            new_board.play_turn(card_played[0], *card_played[1])
-
-        assert new_board.get_winner() == self.board.get_winner()
-        assert new_board.get_board() == self.board.get_board()
+        assert history["first_player"] == expected_history["first_player"]
+        for board_index in range(0, 9):
+            for cell_index in range(0, 9):
+                history_cell = history["boards"][board_index][cell_index]
+                expected_cell = expected_history["boards"][board_index][cell_index]
+                if expected_cell:
+                    assert expected_cell.color == history_cell.color
+                    assert expected_cell.card.top == history_cell.card.top
+                    assert expected_cell.card.bottom == history_cell.card.bottom
+                    assert expected_cell.card.left == history_cell.card.left
+                    assert expected_cell.card.right == history_cell.card.right
+                    assert expected_cell.card.card_type == history_cell.card.card_type
+                    assert expected_cell.card.card_id == history_cell.card.card_id
+                else:
+                    assert history_cell is None
