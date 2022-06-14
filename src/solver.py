@@ -1,8 +1,7 @@
 from typing import NamedTuple
 from typing import Tuple
 
-from game_triple_triad import Card
-from game_triple_triad import PlayerColor
+from src.models.card import Card
 
 
 CORNER_DIRECTIONS_POSITIONS = [
@@ -11,12 +10,6 @@ CORNER_DIRECTIONS_POSITIONS = [
     ("right", "top", 6),
     ("left", "top", 8),
 ]
-
-
-class Player(dict):
-    color: PlayerColor
-    cards: list[Card]
-    cards_played = list[Card]
 
 
 class Move(NamedTuple):

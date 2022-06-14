@@ -1,27 +1,13 @@
 # import cProfile
-import json
 import random
 
-from game_triple_triad import Board
-from game_triple_triad import Card
-from game_triple_triad import DRAW
-from game_triple_triad import PlayerColor
-from solve_game import negamax
-from solve_game import Player
-
-
-def load_cards():
-    with open("assets/cards.json") as cards_json:
-        cards_x = json.load(cards_json)
-
-    return cards_x
-
-
-def load_cards_stars(stars):
-    with open(f"assets/cards_{stars}.json") as cards_json:
-        cards = json.load(cards_json)
-
-    return cards
+from src.models.board import Board
+from src.models.board import DRAW
+from src.models.board import Player
+from src.models.board import PlayerColor
+from src.models.card import Card
+from src.solver import negamax
+from src.utils.cards_json import load_cards_stars
 
 
 def setup_board_and_players():
@@ -132,20 +118,6 @@ def simulate_negamax_versus_random_negamax_second(board, player_blue, player_red
             player_red["cards_played"].append(best_move.card)
 
     print(f"Winner: {board.get_winner()}")
-
-
-def save_x_stars(stars, cards):
-    tmp_cards = []
-    for card in cards["cards"]:
-        if card["stars"] == stars:
-            tmp_cards.append(card)
-
-    save_cards(stars, tmp_cards)
-
-
-def save_cards(stars, cards):
-    with open(f"cards_{stars}.json", "w") as cards_json:
-        json.dump({"cards": cards}, cards_json)
 
 
 if __name__ == "__main__":

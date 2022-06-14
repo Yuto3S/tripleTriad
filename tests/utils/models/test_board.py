@@ -3,11 +3,11 @@ from uuid import uuid4
 
 import pytest
 
-from game_triple_triad import Board
-from game_triple_triad import Card
-from game_triple_triad import History
-from game_triple_triad import Modes
-from game_triple_triad import PlayerColor
+from src.models.board import Board
+from src.models.board import History
+from src.models.board import Modes
+from src.models.board import PlayerColor
+from src.models.card import Card
 from tests.utils.const import HIGH_VALUE
 from tests.utils.const import LOW_VALUE
 from tests.utils.const import MEDIUM_VALUE
