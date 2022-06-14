@@ -1,3 +1,7 @@
+MAX_ASCEND = 10
+MIN_DESCEND = 1
+
+
 class Card:
     top: int
     left: int
@@ -35,17 +39,18 @@ class Card:
         self.game_id = f"{self.card_id}{color}"
 
     def ascend(self):
-        self.top = min(10, self.top + 1)
-        self.bottom = min(10, self.bottom + 1)
-        self.left = min(10, self.left + 1)
-        self.right = min(10, self.right + 1)
+        self.top = min(MAX_ASCEND, self.top + 1)
+        self.bottom = min(MAX_ASCEND, self.bottom + 1)
+        self.left = min(MAX_ASCEND, self.left + 1)
+        self.right = min(MAX_ASCEND, self.right + 1)
 
     def descend(self):
-        self.top = max(1, self.top - 1)
-        self.bottom = max(1, self.bottom - 1)
-        self.left = max(1, self.left - 1)
-        self.right = max(1, self.right - 1)
+        self.top = max(MIN_DESCEND, self.top - 1)
+        self.bottom = max(MIN_DESCEND, self.bottom - 1)
+        self.left = max(MIN_DESCEND, self.left - 1)
+        self.right = max(MIN_DESCEND, self.right - 1)
 
+    #  TODO: Update direction values to Enum
     def get_direction(self, direction):
         match direction:
             case "top":

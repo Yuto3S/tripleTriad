@@ -1,4 +1,5 @@
 import copy
+import random
 from uuid import uuid4
 
 import pytest
@@ -7,9 +8,6 @@ from src.models.board import Board
 from src.models.board import History
 from src.models.board import Modes
 from src.models.board import PlayerColor
-from src.models.card import Card
-from tests.utils.const import HIGH_VALUE
-from tests.utils.const import LOW_VALUE
 from tests.utils.const import MEDIUM_VALUE
 
 ALL_POSITIONS = [
@@ -37,42 +35,6 @@ SANDWICH_INFOS = (
 )
 
 
-@pytest.fixture
-def low_card():
-    return Card(
-        top=LOW_VALUE,
-        left=LOW_VALUE,
-        right=LOW_VALUE,
-        bottom=LOW_VALUE,
-        card_id=0,
-        card_type=0,
-    )
-
-
-@pytest.fixture
-def medium_card():
-    return Card(
-        top=MEDIUM_VALUE,
-        left=MEDIUM_VALUE,
-        right=MEDIUM_VALUE,
-        bottom=MEDIUM_VALUE,
-        card_id=1,
-        card_type=0,
-    )
-
-
-@pytest.fixture
-def high_card():
-    return Card(
-        top=HIGH_VALUE,
-        left=HIGH_VALUE,
-        right=HIGH_VALUE,
-        bottom=HIGH_VALUE,
-        card_id=2,
-        card_type=0,
-    )
-
-
 class TestBoard:
     first_player = PlayerColor.BLUE
     second_player = PlayerColor.RED
@@ -86,7 +48,7 @@ class TestBoard:
     @pytest.mark.parametrize("mode, expected", [(mode, [mode]) for mode in Modes])
     def test_assert_board_created_with_correct_modes(self, mode, expected):
         board = Board(first_player=self.first_player, modes=[mode])
-        assert board.modes == expected
+        assert board.get_modes() == expected
 
     def test_board_can_not_play_card_if_spot_already_taken(self, low_card, high_card):
         board = Board(first_player=self.first_player, modes=[])
@@ -402,6 +364,21 @@ class TestRules(TestBoard):
             == high_card.top
         )
 
+    def test_ascension_does_nothing_if_no_mode_in_use_passed(self, low_card):
+        self.board = Board(first_player=self.first_player, modes=[])
+        custom_card = copy.deepcopy(low_card)
+        custom_card.card_type = 1
+        self.board.play_turn(custom_card, 0, 0)
+
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
+        assert (
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == low_card.top
+        )
+
     def test_descension_decreases_value(self, medium_card):
         self.board = Board(first_player=self.first_player, modes=[Modes.DESCENSION])
         custom_card = copy.deepcopy(medium_card)
@@ -449,6 +426,21 @@ class TestRules(TestBoard):
             == card_on_board.left
             == card_on_board.right
             == low_card.top
+        )
+
+    def test_descension_does_nothing_if_no_mode_in_use_passed(self, high_card):
+        self.board = Board(first_player=self.first_player, modes=[])
+        custom_card = copy.deepcopy(high_card)
+        custom_card.card_type = 1
+        self.board.play_turn(custom_card, 0, 0)
+
+        card_on_board = self.board.get_cell_information_on_position(0, 0).card
+        assert (
+            card_on_board.top
+            == card_on_board.bottom
+            == card_on_board.left
+            == card_on_board.right
+            == high_card.top
         )
 
     def test_card_with_type_does_not_change_if_no_modes(self, medium_card):
@@ -576,3 +568,35 @@ class TestHistory(TestBoard):
                     assert expected_cell.card.card_id == history_cell.card.card_id
                 else:
                     assert history_cell is None
+
+    def test_undo_first_move(self, low_card):
+        board = Board(first_player=self.first_player, modes=[], save_history=True)
+        board.play_turn(low_card, 0, 1)
+        board.undo_move()
+
+        for cell in board.get_board():
+            assert cell is None
+
+
+class TestGetAvailablePositions(TestBoard):
+    def test_get_available_positions_empty_board(self):
+        board = Board(first_player=self.first_player, modes=[])
+        assert board.get_available_positions() == [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+    def test_get_available_positions_with_cards_played(
+        self, low_card, medium_card, high_card
+    ):
+        board = Board(first_player=self.first_player, modes=[])
+        available_positions = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        random.shuffle(available_positions)
+
+        random_position = available_positions.pop()
+        board.play_turn(low_card, random_position // 3, random_position % 3)
+        random_position = available_positions.pop()
+        board.play_turn(medium_card, random_position // 3, random_position % 3)
+        random_position = available_positions.pop()
+        board.play_turn(high_card, random_position // 3, random_position % 3)
+        available_positions.sort()
+
+        assert len(board.get_available_positions()) == 6
+        assert board.get_available_positions() == available_positions
