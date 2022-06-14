@@ -264,9 +264,6 @@ class Board:
     def get_winner(self):
         return self.winner
 
-    def get_first_player(self):
-        return self.first_player
-
     def calculate_winner(self):
         cards_to_first_player = 0
         for cell in self.board:
