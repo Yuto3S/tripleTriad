@@ -135,6 +135,14 @@ class TestCardTakesOverNeighbor(TestBoard):
             self.board.get_cell_information_on_position(1, 1).color == self.first_player
         )
 
+    def test_does_not_take_over_if_lower_value(self, high_card, medium_card):
+        self.board = Board(first_player=self.first_player, modes=[])
+        self.board.play_turn(high_card, 1, 1)
+        self.board.play_turn(medium_card, 0, 1)
+        assert (
+            self.board.get_cell_information_on_position(1, 1).color == self.first_player
+        )
+
 
 class TestRules(TestBoard):
     def test_reverse(self, high_card, low_card):

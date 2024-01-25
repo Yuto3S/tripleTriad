@@ -81,6 +81,8 @@ def simulate_negamax_versus_random_negamax_first(board, player_blue, player_red)
             board.play_turn(card, positions[0] // 3, positions[0] % 3)
             player_red["cards_played"].append(card)
 
+        board.print()
+
     print(f"Winner: {board.get_winner()}")
 
 

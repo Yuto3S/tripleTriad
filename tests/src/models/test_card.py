@@ -70,7 +70,7 @@ class TestCard:
 
     def test_ascend_does_not_go_above_10(self):
         self._init_custom_card()
-        for _ in range(0, 20):
+        for _ in range(0, MAX_ASCEND + 1):
             self.card.ascend()
 
         assert self.card.top == MAX_ASCEND
