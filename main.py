@@ -7,7 +7,7 @@ from src.models.board import PlayerColor
 from src.models.card import Card
 from src.solver import negamax
 from src.utils.cards_json import load_cards_stars
-from src.utils.load_cards import download_and_save_new_cards
+from src.utils.download_cards import download_and_save_new_cards
 
 # from src.models.board import DRAW
 
