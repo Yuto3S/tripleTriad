@@ -185,6 +185,15 @@ class Board:
     def get_winner(self):
         return self.winner
 
+    def count_cards(self, color):
+        cards_counts = 0
+
+        for cell in self.board:
+            if cell.color == color:
+                cards_counts += 1
+
+        return cards_counts
+
     def calculate_winner(self):
         cards_to_first_player = 0
         for cell in self.board:
@@ -374,12 +383,11 @@ class Board:
             width = index % 3
 
             if cell:
-                card_image = cv2.imread(f"assets/images/{cell.card.card_id}.png")
-
-                if cell.color == PlayerColor.BLUE:
-                    card_image = np.power(card_image, [1.3, 1.0, 1.0])
-                else:
-                    card_image = np.power(card_image, [1.0, 1.0, 1.3])
+                card_image = (
+                    cv2.imread(f"assets/images/blue/{cell.card.card_id}.png")
+                    if cell.color == PlayerColor.BLUE
+                    else cv2.imread(f"assets/images/red/{cell.card.card_id}.png")
+                )
 
                 background[
                     height * HEIGHT : (height + 1) * HEIGHT,  # noqa
