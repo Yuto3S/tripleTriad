@@ -2,12 +2,14 @@
 import random
 
 from src.models.board import Board
-from src.models.board import DRAW
 from src.models.board import Player
 from src.models.board import PlayerColor
 from src.models.card import Card
 from src.solver import negamax
 from src.utils.cards_json import load_cards_stars
+from src.utils.load_cards import download_and_save_new_cards
+
+# from src.models.board import DRAW
 
 
 def setup_board_and_players():
@@ -123,14 +125,15 @@ def simulate_negamax_versus_random_negamax_second(board, player_blue, player_red
 
 
 if __name__ == "__main__":
+    download_and_save_new_cards()
     statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
-    while True:
-        board, player_blue, player_red = setup_board_and_players()
-        simulate_negamax_versus_random_negamax_first(board, player_blue, player_red)
-        # simulate_negamax_versus_random_negamax_second(board, player_blue, player_red)
-        if board.get_winner():
-            statistics[board.get_winner().name] += 1
-        else:
-            statistics[DRAW] += 1
-
-        print(statistics)
+    # while True:
+    #     board, player_blue, player_red = setup_board_and_players()
+    #     simulate_negamax_versus_random_negamax_first(board, player_blue, player_red)
+    #     # simulate_negamax_versus_random_negamax_second(board, player_blue, player_red)
+    #     if board.get_winner():
+    #         statistics[board.get_winner().name] += 1
+    #     else:
+    #         statistics[DRAW] += 1
+    #
+    #     print(statistics)
