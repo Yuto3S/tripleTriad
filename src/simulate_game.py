@@ -9,7 +9,9 @@ from src.utils.cards_json import load_cards_stars
 
 
 def simulate_game_from_start(first_player_algorithm, second_player_algorithm):
-    # We assume that BLUE always does the first move
+    # TODO(): We assume that BLUE always does the first move
+    # Verify how it is in the game
+    # I think that the player is always BLUE but the opponent can start (RED start)
     board, player_blue, player_red = setup_board_and_players()
     for i in range(9):
         if not i % 2:
@@ -85,14 +87,21 @@ def play_algorithm_negamax(board, player, other_player, **kwargs):
     current_player_color = board.get_current_player()
     if player["color"] == current_player_color:
         current_player = player
-        heuristic, best_move = negamax(board, player, other_player, -10000, 10000, 1)
+        negamax_color = 1
     else:
         current_player = other_player
-        heuristic, best_move = negamax(board, other_player, player, -10000, 10000, -1)
+        negamax_color = -1
+
+    heuristic, best_move = negamax(
+        board, other_player, player, -10000, 10000, negamax_color
+    )
 
     if best_move is None:
         raise Exception(f"best_move None, heuristic {heuristic} to implement solution")
         # TODO Implement solution if no best_move found
+        # best_move is None happens when the best heuristic is -10000 and the algorithm assumes a loss on perfect plays.
+        # We need to implement some custom logic to do a "decent" move (where a card is played and protected)
+        # Similarly to what is done in estimate_best_move_empty_board()
 
     print(
         f"Heuristic {player['color']} win: {heuristic} by playing {best_move.card.top} in {best_move.position}"
