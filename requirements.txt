@@ -1,3 +1,6 @@
 opencv-python
 numpy
 requests
+keras
+tensorflow
+pillow
