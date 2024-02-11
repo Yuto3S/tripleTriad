@@ -45,8 +45,8 @@ if __name__ == "__main__":
         for board_number in range(13, 15):
             board_img = cv2.imread(f"assets/test_images/board_{board_number}.png")
 
-            board_trim = get_board_from_on_image(board_img)
-            final_board_with_cards = get_cards_from_board(board_trim)
+            board_crop = get_board_from_on_image(board_img)
+            final_board_with_cards = get_cards_from_board(board_crop)
             final_image_to_show = get_one_image_from_images(
                 [board_img, final_board_with_cards]
             )
