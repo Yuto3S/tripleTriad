@@ -1,19 +1,37 @@
 import cv2
 import numpy as np
 
+from src.ocr.card_recognition import test_one_to_from_image
+from src.utils.display import get_one_image_from_images
+from src.utils.display import get_one_image_from_images_vertical
 
 NORMALIZED_BOARD_WIDTH = 1152
 NORMALIZED_BOARD_HEIGHT = 488
 
+"""
+The cards for each player are displayed in the image as shown in the following ASCII drawing:
+   ______   ______   ______
+  |     |  |     |  |     |
+  |  1  |  |  2  |  |  3  |
+  |_____|  |_____|  |_____|
+       ______   ______
+      |     |  |     |
+      |  4  |  |  5  |
+      |_____|  |_____|
 
-def show_image(image):
-    cv2.imshow("", image)
-    cv2.waitKey(0)
+The coordinates are for cards in this order and on a normalized board.
+"""
+CARDS_NORMALIZED_COORDINATES = [
+    [(13, 176), (128, 314)],
+    [(124, 176), (237, 314)],
+    [(235, 176), (350, 314)],
+    [(70, 320), (182, 455)],
+    [(180, 320), (290, 455)],
+]
 
 
 # https://pyimagesearch.com/2015/01/26/multi-scale-template-matching-using-python-opencv/
-def get_board_from_on_image(board_number):
-    image = cv2.imread(f"assets/test_images/board_{board_number}.png")
+def get_board_from_on_image(image):
     template = cv2.imread("assets/images/board_cut.jpg")
     image_height, image_width, _ = image.shape
     template_height, template_width, _ = template.shape
@@ -79,32 +97,15 @@ def get_board_coordinates(best_match, template_width, template_height):
 
 
 def get_cards_from_board(board):
-    # normalized = cv2.resize(
-    #     board, (628, 266), interpolation=cv2.INTER_AREA
-    # )
-    # TOP_LEFT_X = (6, 70) # 64 --> 104 1.625
-    # TOP_LEFT_Y = (96, 171)
+    comparison_images = [board]
 
-    TOP_LEFT_X = (13, 128)
-    TOP_LEFT_Y = (176, 314)
+    for card_start, card_end in CARDS_NORMALIZED_COORDINATES:
+        current_card = board[card_start[1] : card_end[1], card_start[0] : card_end[0]]
+        matching_id = test_one_to_from_image(current_card)
+        matched_image = cv2.imread(f"assets/images/{matching_id}.png")
+        comparison_image = get_one_image_from_images([current_card, matched_image])
+        comparison_images.append(comparison_image)
 
-    # TOP_LEFT_X_START_RATIO = int(TOP_LEFT_X[0] * 100 / WIDTH * 100)
-    # TOP_LEFT_X_END_RATIO = int(TOP_LEFT_X[1] / WIDTH * 100)
-    # TOP_LEFT_Y_START_RATIO = int(TOP_LEFT_Y[0] / HEIGHT * 100)
-    # TOP_LEFT_Y_END_RATIO = int(TOP_LEFT_Y[1] / HEIGHT * 100)
-
-    # print(f"({TOP_LEFT_X_START_RATIO},{TOP_LEFT_Y_START_RATIO}) -> ({TOP_LEFT_X_END_RATIO}, {TOP_LEFT_Y_END_RATIO})")
-    # board_height, board_width, _ = board.shape
-    #
-
-    print(f"({TOP_LEFT_X[0]}, {TOP_LEFT_Y[0]}) -> ({TOP_LEFT_X[1]}, {TOP_LEFT_Y[1]})")
-
-    cv2.rectangle(
-        board,
-        (TOP_LEFT_X[0], TOP_LEFT_Y[0]),
-        (TOP_LEFT_X[1], TOP_LEFT_Y[1]),
-        (0, 0, 255),
-        2,
-    )
-
-    show_image(board)
+    final_cmp_img = get_one_image_from_images_vertical(comparison_images)
+    return final_cmp_img
+    # show_image(final_cmp_img)
