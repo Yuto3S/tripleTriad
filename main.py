@@ -1,6 +1,7 @@
 # import cProfile
 from src.models.board import DRAW
 from src.ocr.board_recognition import get_board_from_on_image
+from src.ocr.board_recognition import get_cards_from_board
 from src.ocr.card_recognition import test_one_to_many
 from src.simulate_game import play_algorithm_negamax
 from src.simulate_game import play_algorithm_random
@@ -36,7 +37,8 @@ if __name__ == "__main__":
         print(statistics)
 
     # get_board_from_on_image(1)
-    get_board_from_on_image(3)
+    board = get_board_from_on_image(14)
+    get_cards_from_board(board)
     # get_board_from_on_image(2)
     # get_board_from_on_image(4)
     # for i in range(11, 16):

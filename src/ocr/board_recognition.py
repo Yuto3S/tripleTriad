@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 
 
+NORMALIZED_BOARD_WIDTH = 1152
+NORMALIZED_BOARD_HEIGHT = 488
+
+
 def show_image(image):
     cv2.imshow("", image)
     cv2.waitKey(0)
@@ -40,14 +44,67 @@ def get_board_from_on_image(board_number):
                 "ratio": ratio,
             }
 
+    board_trim_coordinates = get_board_coordinates(
+        best_match, template_width, template_height
+    )
+
+    board = image[
+        board_trim_coordinates["start"]["y"] : board_trim_coordinates["end"]["y"],
+        board_trim_coordinates["start"]["x"] : board_trim_coordinates["end"]["x"],
+    ]
+    normalized_board = cv2.resize(
+        board,
+        (NORMALIZED_BOARD_WIDTH, NORMALIZED_BOARD_HEIGHT),
+        interpolation=cv2.INTER_AREA,
+    )
+    return normalized_board
+
+
+def get_board_coordinates(best_match, template_width, template_height):
     start_x = int(best_match["location"][0] * best_match["ratio"])
     start_y = int(best_match["location"][1] * best_match["ratio"])
     end_x = int((best_match["location"][0] + template_width) * best_match["ratio"])
     end_y = int((best_match["location"][1] + template_height) * best_match["ratio"])
 
-    print(f"(x,y) {start_x, start_y}, (w,h) {end_x, end_y}, best_match {best_match}")
+    return {
+        "start": {
+            "x": start_x,
+            "y": start_y,
+        },
+        "end": {
+            "x": end_x,
+            "y": end_y,
+        },
+    }
 
-    board = image[start_y:end_y, start_x:end_x]
-    # cv2.rectangle(image, (start_x, start_y), (end_x, end_y), (0, 0, 255), 2)
+
+def get_cards_from_board(board):
+    # normalized = cv2.resize(
+    #     board, (628, 266), interpolation=cv2.INTER_AREA
+    # )
+    # TOP_LEFT_X = (6, 70) # 64 --> 104 1.625
+    # TOP_LEFT_Y = (96, 171)
+
+    TOP_LEFT_X = (13, 128)
+    TOP_LEFT_Y = (176, 314)
+
+    # TOP_LEFT_X_START_RATIO = int(TOP_LEFT_X[0] * 100 / WIDTH * 100)
+    # TOP_LEFT_X_END_RATIO = int(TOP_LEFT_X[1] / WIDTH * 100)
+    # TOP_LEFT_Y_START_RATIO = int(TOP_LEFT_Y[0] / HEIGHT * 100)
+    # TOP_LEFT_Y_END_RATIO = int(TOP_LEFT_Y[1] / HEIGHT * 100)
+
+    # print(f"({TOP_LEFT_X_START_RATIO},{TOP_LEFT_Y_START_RATIO}) -> ({TOP_LEFT_X_END_RATIO}, {TOP_LEFT_Y_END_RATIO})")
+    # board_height, board_width, _ = board.shape
+    #
+
+    print(f"({TOP_LEFT_X[0]}, {TOP_LEFT_Y[0]}) -> ({TOP_LEFT_X[1]}, {TOP_LEFT_Y[1]})")
+
+    cv2.rectangle(
+        board,
+        (TOP_LEFT_X[0], TOP_LEFT_Y[0]),
+        (TOP_LEFT_X[1], TOP_LEFT_Y[1]),
+        (0, 0, 255),
+        2,
+    )
 
     show_image(board)
