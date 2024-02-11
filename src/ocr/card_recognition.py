@@ -54,6 +54,7 @@ def test_one_to_many(input_img_name):
     return ids[0] + 1
 
 
+# https://medium.com/@developerRegmi/image-similarity-comparison-using-vgg16-deep-learning-model-a663a411cd24
 def test_one_to_from_image(img_open_cv):
     base_model = VGG16(weights="imagenet")
     model = Model(inputs=base_model.input, outputs=base_model.get_layer("fc1").output)
@@ -80,6 +81,7 @@ def test_one_to_from_image(img_open_cv):
     dists = np.linalg.norm(
         all_features - query, axis=1
     )  # Calculate the similarity (distance) between images
+    # TODO(): Maybe define a minimum distance
     ids = np.argsort(dists)[:5]  # Extract 5 images that have lowest distance
     # print(ids)
     print(f"Card should be: {ids[0]+1}")
