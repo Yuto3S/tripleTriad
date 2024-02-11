@@ -39,11 +39,11 @@ BEST_MATCH_VALUE = "value"
 BEST_MATCH_LOCATION = "location"
 BEST_MATCH_RATIO = "ratio"
 
-CROP_START_POINT = "start_crop_point"
-CROP_END_POINT = "end_crop_point"
+CROP_START = "start_crop_point"
+CROP_END = "end_crop_point"
 
-COORDINATE_X = "x"
-COORDINATE_Y = "y"
+COORD_X = "x"
+COORD_Y = "y"
 
 
 # https://pyimagesearch.com/2015/01/26/multi-scale-template-matching-using-python-opencv/
@@ -104,20 +104,20 @@ def maybe_find_better_match(scale, image, template, current_best_match):
 
 def get_board_crop_coordinates(best_match, template_width, template_height):
     crop_coordinates = {
-        CROP_START_POINT: {
-            COORDINATE_X: int(
+        CROP_START: {
+            COORD_X: int(
                 best_match[BEST_MATCH_LOCATION][0] * best_match[BEST_MATCH_RATIO]
             ),
-            COORDINATE_Y: int(
+            COORD_Y: int(
                 best_match[BEST_MATCH_LOCATION][1] * best_match[BEST_MATCH_RATIO]
             ),
         },
-        CROP_END_POINT: {
-            COORDINATE_X: int(
+        CROP_END: {
+            COORD_X: int(
                 (best_match[BEST_MATCH_LOCATION][0] + template_width)
                 * best_match[BEST_MATCH_RATIO]
             ),
-            COORDINATE_Y: int(
+            COORD_Y: int(
                 (best_match[BEST_MATCH_LOCATION][1] + template_height)
                 * best_match[BEST_MATCH_RATIO]
             ),
@@ -129,12 +129,8 @@ def get_board_crop_coordinates(best_match, template_width, template_height):
 
 def crop_and_normalize_board(image, crop_coordinates):
     board = image[
-        crop_coordinates[CROP_START_POINT][COORDINATE_Y] : crop_coordinates[
-            CROP_END_POINT
-        ][COORDINATE_Y],
-        crop_coordinates[CROP_START_POINT][COORDINATE_X] : crop_coordinates[
-            CROP_END_POINT
-        ][COORDINATE_X],
+        crop_coordinates[CROP_START][COORD_Y] : crop_coordinates[CROP_END][COORD_Y],
+        crop_coordinates[CROP_START][COORD_X] : crop_coordinates[CROP_END][COORD_X],
     ]
     normalized_board = cv2.resize(
         board,
