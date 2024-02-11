@@ -1,9 +1,6 @@
 # import cProfile
-import cv2
-import numpy as np
-
 from src.models.board import DRAW
-from src.ocr.board_recognition import test_board_recognition
+from src.ocr.board_recognition import get_board_from_on_image
 from src.ocr.card_recognition import test_one_to_many
 from src.simulate_game import play_algorithm_negamax
 from src.simulate_game import play_algorithm_random
@@ -11,39 +8,11 @@ from src.simulate_game import simulate_game_from_start
 from src.utils.download_cards import download_and_save_new_cards
 
 
-def get_one_image(images):
-    img_list = []
-    padding = 200
-    for img in images:
-        img_list.append(cv2.imread(img))
-    max_width = []
-    max_height = 0
-    for img in img_list:
-        max_width.append(img.shape[0])
-        max_height += img.shape[1]
-    w = np.max(max_width)
-    h = max_height + padding
-
-    # create a new array with a size large enough to contain all the images
-    final_image = np.zeros((h, w, 3), dtype=np.uint8)
-
-    current_y = (
-        0  # keep track of where your current image was last placed in the y coordinate
-    )
-    for image in img_list:
-        # add an image to the final array and increment the y coordinate
-        final_image[
-            current_y : image.shape[0] + current_y, : image.shape[1], :  # noqa
-        ] = image
-        current_y += image.shape[0]
-
-    return final_image
-
-
 if __name__ == "__main__":
     # TODO() Command line params
     should_download_new_cards = False
     should_simulate_game = False
+    should_try_recognize_card = False
 
     if should_download_new_cards:
         download_and_save_new_cards()
@@ -66,12 +35,28 @@ if __name__ == "__main__":
 
         print(statistics)
 
-    test_board_recognition()
+    # get_board_from_on_image(1)
+    get_board_from_on_image(3)
+    # get_board_from_on_image(2)
+    # get_board_from_on_image(4)
+    # for i in range(11, 16):
+    #     get_board_from_on_image(i)
 
-    for test_card_id in range(6, 10):
-        result_id = test_one_to_many(test_card_id)
-        final_image__ = get_one_image(
-            [f"assets/test_images/{test_card_id}.png", f"assets/images/{result_id}.png"]
-        )
-        cv2.imshow("", final_image__)
-        cv2.waitKey(0)
+    # test_board_recognition(1)  # Screenshot taken too late so OCR not perfect and doesn't trim enough.
+    # test_board_recognition(2)
+    # test_board_recognition(3)
+    # test_board_recognition(4)
+    # test_board_recognition(11)
+    # test_board_recognition(12)
+    # test_board_recognition(13)
+    # test_board_recognition(14)
+    # test_board_recognition(15)
+
+    if should_try_recognize_card:
+        for test_card_id in range(6, 10):
+            result_id = test_one_to_many(test_card_id)
+            # final_image__ = get_one_image(
+            #     [f"assets/test_images/{test_card_id}.png", f"assets/images/{result_id}.png"]
+            # )
+            # cv2.imshow("", final_image__)
+            # cv2.waitKey(0)
