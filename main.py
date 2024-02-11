@@ -15,6 +15,14 @@ from src.utils.display import stack_images_vertical
 from src.utils.download_cards import download_and_save_new_cards
 
 
+"""
+TODOS:
+    - Move assets files around and cleanup image vs test folders
+    - Simplify algorithm to find where the board is (binary search instead of 100 iterations)
+    - Find position of center square of board
+    - Apply algorithm from screen capture feed
+"""
+
 if __name__ == "__main__":  # noqa: C901 - complex main function during dev is fine
     # TODO() Command line params
     should_download_new_cards = False
@@ -26,20 +34,21 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
         download_and_save_new_cards()
         generate_embeddings_for_all_existing_cards()
 
-    statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
+    if should_simulate_game:
+        statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
 
-    while should_simulate_game:
-        board = simulate_game_from_start(
-            first_player_algorithm=play_algorithm_random,
-            second_player_algorithm=play_algorithm_negamax,
-        )
+        while should_simulate_game:
+            board = simulate_game_from_start(
+                first_player_algorithm=play_algorithm_random,
+                second_player_algorithm=play_algorithm_negamax,
+            )
 
-        if board.get_winner():
-            statistics[board.get_winner().name] += 1
-        else:
-            statistics[DRAW] += 1
+            if board.get_winner():
+                statistics[board.get_winner().name] += 1
+            else:
+                statistics[DRAW] += 1
 
-        print(statistics)
+            print(statistics)
 
     if should_try_recognize_board:
         for board_number in range(13, 15):
