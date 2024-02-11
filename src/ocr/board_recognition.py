@@ -1,9 +1,7 @@
 import cv2
 import numpy as np
 
-from src.ocr.card_recognition import test_one_to_from_image
-from src.utils.display import get_one_image_from_images
-from src.utils.display import get_one_image_from_images_vertical
+from src.ocr.card_recognition import find_ids_of_cards
 
 
 """
@@ -52,7 +50,7 @@ def get_board_from_on_image(image):
     image_height, image_width, _ = image.shape
     template_height, template_width, _ = board_template.shape
 
-    best_match = None
+    best_match = {}
 
     # TODO(): Improve area narrowing down with a better algorithm, maybe binary search?
     for scale in np.linspace(0.5, 1.5, 100)[::-1]:
@@ -141,16 +139,14 @@ def crop_and_normalize_board(image, crop_coordinates):
     return normalized_board
 
 
-def get_cards_from_board(board):
-    comparison_images = [board]
-
+def find_cards_on_board(board):
+    cards_trim = []
     for card_start, card_end in CARDS_NORMALIZED_COORDINATES:
-        current_card = board[card_start[1] : card_end[1], card_start[0] : card_end[0]]
-        matching_id = test_one_to_from_image(current_card)
-        matched_image = cv2.imread(f"assets/images/{matching_id}.png")
-        comparison_image = get_one_image_from_images([current_card, matched_image])
-        comparison_images.append(comparison_image)
+        cards_trim.append(
+            board[card_start[1] : card_end[1], card_start[0] : card_end[0]]
+        )
 
-    final_cmp_img = get_one_image_from_images_vertical(comparison_images)
-    return final_cmp_img
-    # show_image(final_cmp_img)
+    matched_ids = find_ids_of_cards(cards_trim)
+    print(matched_ids)
+
+    return cards_trim, matched_ids

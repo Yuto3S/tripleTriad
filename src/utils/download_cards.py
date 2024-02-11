@@ -10,17 +10,26 @@ CARDS_3_STARS_FILE_NAME = "cards_3.json"
 CARDS_4_STARS_FILE_NAME = "cards_4.json"
 CARDS_5_STARS_FILE_NAME = "cards_5.json"
 
-ASSETS_IMAGES_PATH = "assets/images/"
+ASSETS_IMAGES_PATH = f"{ASSETS_CARDS_PATH}images/"
+ASSETS_IMAGES__DEFAULT_PATH = f"{ASSETS_IMAGES_PATH}default/"
 ASSETS_IMAGES__BLUE_PATH = f"{ASSETS_IMAGES_PATH}blue/"
 ASSETS_IMAGES__RED_PATH = f"{ASSETS_IMAGES_PATH}red/"
 
 RAELYS_API_GET_ALL_CARDS = "https://triad.raelys.com/api/cards"
 RAELYS_API_RESULT = "results"
+RAELYS_API_ID = "id"
+RAELYS_API_IMAGE = "image"
+RAELYS_API_BLUE_IMAGE = "image_blue"
+RAELYS_API_RED_IMAGE = "image_red"
+
 
 FILE_WRITE_BINARY = "wb"
 FILE_WRITE = "w"
 
+FILE_DOT_PNG = ".png"
 
+
+# TODO() See how to create dict class
 def parse_card_info(card):
     return {
         "name": card["name"],
@@ -53,9 +62,13 @@ def download_and_save_new_cards():
     for card in response_content[RAELYS_API_RESULT]:
         print(f"Iterating over card {card['id']}")
         maybe_download_and_save_card_images(
-            card["id"], card["image"], card["image_blue"], card["image_red"]
+            card[RAELYS_API_ID],
+            card[RAELYS_API_IMAGE],
+            card[RAELYS_API_BLUE_IMAGE],
+            card[RAELYS_API_RED_IMAGE],
         )
         formatted_card = parse_card_info(card)
+
         all_cards.append(formatted_card)
         match formatted_card["stars"]:
             case 3:
@@ -65,7 +78,7 @@ def download_and_save_new_cards():
             case 5:
                 cards_5_stars.append(formatted_card)
             case _:
-                # We don't really care about cards that have less than 3 stars.
+                # No specific treatment for cards with less than 3 stars.
                 continue
 
     save_cards(all_cards, cards_3_stars, cards_4_stars, cards_5_stars)
@@ -74,9 +87,9 @@ def download_and_save_new_cards():
 def maybe_download_and_save_card_images(
     card_id, image_url, image_blue_url, image_red_url
 ):
-    card_image_path = f"{ASSETS_IMAGES_PATH}{card_id}.png"
-    card_image_blue_path = f"{ASSETS_IMAGES__BLUE_PATH}{card_id}.png"
-    card_image_red_path = f"{ASSETS_IMAGES__RED_PATH}{card_id}.png"
+    card_image_path = f"{ASSETS_IMAGES__DEFAULT_PATH}{card_id}{FILE_DOT_PNG}"
+    card_image_blue_path = f"{ASSETS_IMAGES__BLUE_PATH}{card_id}{FILE_DOT_PNG}"
+    card_image_red_path = f"{ASSETS_IMAGES__RED_PATH}{card_id}{FILE_DOT_PNG}"
 
     if not os.path.exists(card_image_path):
         download_and_save_card_image(image_url, card_image_path)

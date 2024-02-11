@@ -2,37 +2,37 @@
 import cv2
 
 from src.models.board import DRAW
+from src.ocr.board_recognition import find_cards_on_board
 from src.ocr.board_recognition import get_board_from_on_image
-from src.ocr.board_recognition import get_cards_from_board
-from src.ocr.card_recognition import test_one_to_many
+from src.ocr.card_recognition import find_ids_of_cards
+from src.ocr.card_recognition import generate_embeddings_for_all_existing_cards
 from src.simulate_game import play_algorithm_negamax
 from src.simulate_game import play_algorithm_random
 from src.simulate_game import simulate_game_from_start
-from src.utils.display import get_one_image_from_images
 from src.utils.display import show_image
+from src.utils.display import stack_images_horizontal
+from src.utils.display import stack_images_vertical
 from src.utils.download_cards import download_and_save_new_cards
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # noqa: C901 - complex main function during dev is fine
     # TODO() Command line params
     should_download_new_cards = False
     should_simulate_game = False
-    should_try_recognize_card = False
+    should_try_recognize_card = True
     should_try_recognize_board = False
 
     if should_download_new_cards:
         download_and_save_new_cards()
+        generate_embeddings_for_all_existing_cards()
 
     statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
+
     while should_simulate_game:
         board = simulate_game_from_start(
             first_player_algorithm=play_algorithm_random,
             second_player_algorithm=play_algorithm_negamax,
         )
-        # board = simulate_game_from_start(
-        #     first_player_algorithm=play_algorithm_negamax,
-        #     second_player_algorithm=play_algorithm_random,
-        # )
 
         if board.get_winner():
             statistics[board.get_winner().name] += 1
@@ -46,19 +46,33 @@ if __name__ == "__main__":
             board_img = cv2.imread(f"assets/test_images/board_{board_number}.png")
 
             board_crop = get_board_from_on_image(board_img)
-            final_board_with_cards = get_cards_from_board(board_crop)
-            final_image_to_show = get_one_image_from_images(
-                [board_img, final_board_with_cards]
-            )
-            show_image(final_image_to_show)
+            cards_trim, matched_ids = find_cards_on_board(board_crop)
+            card_images = []
+            for matched_id in matched_ids:
+                card_images.append(
+                    cv2.imread(f"assets/images/default/{matched_id}.png")
+                )
+
+            card_trim_with_matched_card = []
+            for i in range(len(card_images)):
+                new_match_image = stack_images_vertical([card_images[i], cards_trim[i]])
+                card_trim_with_matched_card.append(new_match_image)
+
+            to_stack_vertical = [board_crop]
+            to_stack_vertical.extend(card_trim_with_matched_card)
+            board_with_matches = stack_images_horizontal(to_stack_vertical)
+
+            final_image = stack_images_vertical([board_img, board_with_matches])
+            show_image(final_image)
 
     if should_try_recognize_card:
         for test_card_id in range(6, 10):
-            result_id = test_one_to_many(test_card_id)
-            final_image__ = get_one_image_from_images(
-                [
-                    f"assets/test_images/{test_card_id}.png",
-                    f"assets/images/{result_id}.png",
-                ]
+            test_card_image = cv2.imread(f"assets/test_images/{test_card_id}.png")
+            matched_cards_id = find_ids_of_cards([test_card_image])
+            matched_card_from_id = cv2.imread(
+                f"assets/images/default/{matched_cards_id[0]}.png"
             )
-            show_image(final_image__)
+            test_image_next_to_matched_card = stack_images_horizontal(
+                [test_card_image, matched_card_from_id]
+            )
+            show_image(test_image_next_to_matched_card)
