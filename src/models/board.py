@@ -5,6 +5,8 @@ import cv2
 import numpy as np
 
 from src.models.card import Card
+from src.utils.download_cards import CARDS_IMAGES__BLUE_PATH
+from src.utils.download_cards import CARDS_IMAGES__RED_PATH
 
 BLUE = "\033[94m"
 RED = "\033[31m"
@@ -384,9 +386,9 @@ class Board:
 
             if cell:
                 card_image = (
-                    cv2.imread(f"assets/images/blue/{cell.card.card_id}.png")
+                    cv2.imread(f"{CARDS_IMAGES__RED_PATH}{cell.card.card_id}.png")
                     if cell.color == PlayerColor.BLUE
-                    else cv2.imread(f"assets/images/red/{cell.card.card_id}.png")
+                    else cv2.imread(f"{CARDS_IMAGES__BLUE_PATH}{cell.card.card_id}.png")
                 )
 
                 background[

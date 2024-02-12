@@ -12,8 +12,8 @@ from src.simulate_game import simulate_game_from_start
 from src.utils.display import show_image
 from src.utils.display import stack_images_horizontal
 from src.utils.display import stack_images_vertical
+from src.utils.download_cards import CARDS_IMAGES__DEFAULT_PATH
 from src.utils.download_cards import download_and_save_new_cards
-
 
 """
 TODOS:
@@ -51,15 +51,15 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
             print(statistics)
 
     if should_try_recognize_board:
-        for board_number in range(13, 15):
-            board_img = cv2.imread(f"assets/test_images/board_{board_number}.png")
+        for board_number in range(11, 16):
+            board_img = cv2.imread(f"assets/test_images/board/board_{board_number}.png")
 
             board_crop = get_board_from_on_image(board_img)
             cards_trim, matched_ids = find_cards_on_board(board_crop)
             card_images = []
             for matched_id in matched_ids:
                 card_images.append(
-                    cv2.imread(f"assets/images/default/{matched_id}.png")
+                    cv2.imread(f"{CARDS_IMAGES__DEFAULT_PATH}{matched_id}.png")
                 )
 
             card_trim_with_matched_card = []
@@ -75,11 +75,11 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
             show_image(final_image)
 
     if should_try_recognize_card:
-        for test_card_id in range(6, 10):
-            test_card_image = cv2.imread(f"assets/test_images/{test_card_id}.png")
+        for test_card_id in range(1, 10):
+            test_card_image = cv2.imread(f"assets/test_images/card/{test_card_id}.png")
             matched_cards_id = find_ids_of_cards([test_card_image])
             matched_card_from_id = cv2.imread(
-                f"assets/images/default/{matched_cards_id[0]}.png"
+                f"{CARDS_IMAGES__DEFAULT_PATH}{matched_cards_id[0]}.png"
             )
             test_image_next_to_matched_card = stack_images_horizontal(
                 [test_card_image, matched_card_from_id]

@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+from src.models.board import IMAGES_PATH
 from src.ocr.card_recognition import find_ids_of_cards
 
 
@@ -44,9 +45,13 @@ COORD_X = "x"
 COORD_Y = "y"
 
 
+BOARD_IMAGES_PATH = f"{IMAGES_PATH}/board/"
+BOARD_TEMPLATE_IMAGE_PATH = f"{BOARD_IMAGES_PATH}board_cut.jpg"
+
+
 # https://pyimagesearch.com/2015/01/26/multi-scale-template-matching-using-python-opencv/
 def get_board_from_on_image(image):
-    board_template = cv2.imread("assets/images/board_cut.jpg")
+    board_template = cv2.imread(BOARD_TEMPLATE_IMAGE_PATH)
     image_height, image_width, _ = image.shape
     template_height, template_width, _ = board_template.shape
 

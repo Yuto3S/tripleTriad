@@ -8,10 +8,16 @@ from keras.models import Model
 from keras.preprocessing import image
 from PIL import Image
 
-from src.utils.download_cards import ASSETS_IMAGES__DEFAULT_PATH
+from src.utils.download_cards import CARDS_IMAGES__DEFAULT_PATH
+from src.utils.download_cards import FILE_FORMAT_PNG
 
 VGG16_INPUT_SIZE = 224
 RGB = "RGB"
+
+
+GENERATED_ASSETS_PATH = "assets/generated/"
+GENERATED_CARDS_ALL_EMBEDDINGS_PATH = f"{GENERATED_ASSETS_PATH}cards_all_embeddings"
+NUMPY_FILE_FORMAT = ".npy"
 
 
 def generate_embeddings_for_all_existing_cards():
@@ -19,7 +25,7 @@ def generate_embeddings_for_all_existing_cards():
 
     # TODO() move files into a sub directory separate from the blue/red folders
     number_of_cards = len(
-        [file for file in glob.glob(f"{ASSETS_IMAGES__DEFAULT_PATH}*.png")]
+        [file for file in glob.glob(f"{CARDS_IMAGES__DEFAULT_PATH}*{FILE_FORMAT_PNG}")]
     )
 
     all_embeddings = []
@@ -27,7 +33,7 @@ def generate_embeddings_for_all_existing_cards():
         embeddings = extract_embeddings_from_image(card_image, model)
         all_embeddings.append(embeddings)
 
-    np.save("tmp_test_test", np.array(all_embeddings))
+    np.save(GENERATED_CARDS_ALL_EMBEDDINGS_PATH, np.array(all_embeddings))
 
 
 def get_deep_learning_model():
@@ -37,7 +43,9 @@ def get_deep_learning_model():
 
 def get_images(number_of_cards):
     for card_number in range(1, number_of_cards + 1):
-        card_image = Image.open(f"assets/images/{card_number}.png")
+        card_image = Image.open(
+            f"{CARDS_IMAGES__DEFAULT_PATH}{card_number}.{FILE_FORMAT_PNG}"
+        )
         yield card_image
 
 
@@ -68,7 +76,9 @@ def normalize_embeddings(embeddings):
 # https://medium.com/@developerRegmi/image-similarity-comparison-using-vgg16-deep-learning-model-a663a411cd24
 def find_ids_of_cards(cards_image):
     model = get_deep_learning_model()
-    all_embeddings = np.load("tmp_test_test.npy")
+    all_embeddings = np.load(
+        f"{GENERATED_CARDS_ALL_EMBEDDINGS_PATH}{NUMPY_FILE_FORMAT}"
+    )
 
     matched_cards_id = []
 
