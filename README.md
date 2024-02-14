@@ -6,19 +6,30 @@ You can currently:
 - Use OCR to recognize cards from a picture into their in-game values.
 - Use OCR, to take a picture of a board, and extract the cards available to the left player before the game starts.
 
+## Setup
+```
+git clone https://github.com/Yuto3S/tripleTriad/
+cd tripleTriad
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+python -m main
+```
+
 ## Examples:
+Running `python -m main` will currently show example of those 3 functionalities.
+
 ### Game simulation
-Changing `should_simulate_game` from `True` to `False` and running `python -m main` will play a game and display the board state:
+Changing `should_simulate_game` handles the automated AI VS Random plays:
 ![](assets/examples/should_simulate_game.png)
 
 
 ### Card recognition
-Changing `should_try_recognize_card` from `True` to `False` and running `python -m main` will display an image like this one:
+Changing `should_try_recognize_card` handles card recognition:
 
 ![](assets/examples/should_try_recognize_card.png)
 
 ### Board trimming into card recognition
-Changing `should_try_recognize_board` from `True` to `False` and running `python -m main` will display an image like this one:
+Changing `should_try_recognize_board` handles board trimming and card recognition:
 
  ![](assets/examples/should_try_recognize_board.png)
 
