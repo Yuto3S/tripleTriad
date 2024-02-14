@@ -20,12 +20,11 @@ def simulate_game_from_start(first_player_algorithm, second_player_algorithm):
             )
         else:
             second_player_algorithm(
-                board=board, player=player_blue, other_player=player_red
+                board=board, player=player_red, other_player=player_blue
             )
 
         board.print()
 
-    board.print()
     print(f"BLUE cards: {board.count_cards(PlayerColor.BLUE)}")
     print(f"RED cards: {board.count_cards(PlayerColor.RED)}")
     print(f"Winner: {board.get_winner()}")
@@ -89,13 +88,15 @@ def play_algorithm_negamax(board, player, other_player, **kwargs):
     current_player_color = board.get_current_player()
     if player["color"] == current_player_color:
         current_player = player
-        negamax_color = -1
+        next_player = other_player
+        negamax_color = 1
     else:
         current_player = other_player
-        negamax_color = 1
+        next_player = player
+        negamax_color = -1
 
     heuristic, best_move = negamax(
-        board, other_player, player, -10000, 10000, negamax_color
+        board, current_player, next_player, -10000, 10000, negamax_color
     )
 
     if best_move is None:
