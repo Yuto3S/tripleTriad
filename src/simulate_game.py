@@ -23,6 +23,8 @@ def simulate_game_from_start(first_player_algorithm, second_player_algorithm):
                 board=board, player=player_blue, other_player=player_red
             )
 
+        board.print()
+
     board.print()
     print(f"BLUE cards: {board.count_cards(PlayerColor.BLUE)}")
     print(f"RED cards: {board.count_cards(PlayerColor.RED)}")
@@ -87,10 +89,10 @@ def play_algorithm_negamax(board, player, other_player, **kwargs):
     current_player_color = board.get_current_player()
     if player["color"] == current_player_color:
         current_player = player
-        negamax_color = 1
+        negamax_color = -1
     else:
         current_player = other_player
-        negamax_color = -1
+        negamax_color = 1
 
     heuristic, best_move = negamax(
         board, other_player, player, -10000, 10000, negamax_color
@@ -104,7 +106,21 @@ def play_algorithm_negamax(board, player, other_player, **kwargs):
         # Similarly to what is done in estimate_best_move_empty_board()
 
     print(
-        f"Heuristic {player['color']} win: {heuristic} by playing {best_move.card.top} in {best_move.position}"
+        f"Heuristic {current_player['color']} win value is: {heuristic}\n"
+        f"Recommended play: \n"
+        f" _____                     ______\n"
+        f"|  {best_move.card.top}  |  in position      |"
+        f"{'X' if best_move.position == 0 else '_'}|"
+        f"{'X' if best_move.position == 1 else '_'}|"
+        f"{'X' if best_move.position == 2 else '_'}|\n"
+        f"|{best_move.card.left}   {best_move.card.right}|                   "
+        f"|{'X' if best_move.position == 3 else '_'}|"
+        f"{'X' if best_move.position == 4 else '_'}|"
+        f"{'X' if best_move.position == 5 else '_'}|\n"
+        f"|__{best_move.card.bottom}__|                   "
+        f"|{'X' if best_move.position == 6 else '_'}|"
+        f"{'X' if best_move.position == 7 else '_'}|"
+        f"{'X' if best_move.position == 8 else '_'}|\n"
     )
     board.play_turn(best_move.card, best_move.position // 3, best_move.position % 3)
 

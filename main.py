@@ -1,7 +1,6 @@
 # import cProfile
 import cv2
 
-from src.models.board import DRAW
 from src.ocr.board_recognition import find_cards_on_board
 from src.ocr.board_recognition import get_board_from_on_image
 from src.ocr.card_recognition import find_ids_of_cards
@@ -26,8 +25,8 @@ TODOS:
 if __name__ == "__main__":  # noqa: C901 - complex main function during dev is fine
     # TODO() Command line params
     should_download_new_cards = False
-    should_simulate_game = False
-    should_try_recognize_card = True
+    should_simulate_game = True
+    should_try_recognize_card = False
     should_try_recognize_board = False
 
     if should_download_new_cards:
@@ -39,14 +38,14 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
 
         while should_simulate_game:
             board = simulate_game_from_start(
-                first_player_algorithm=play_algorithm_random,
-                second_player_algorithm=play_algorithm_negamax,
+                first_player_algorithm=play_algorithm_negamax,
+                second_player_algorithm=play_algorithm_random,
             )
 
             if board.get_winner():
                 statistics[board.get_winner().name] += 1
             else:
-                statistics[DRAW] += 1
+                statistics["DRAW"] += 1
 
             print(statistics)
 

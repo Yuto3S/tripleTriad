@@ -3,7 +3,9 @@ import os
 
 import requests
 
-from src.ocr.card_recognition import GENERATED_ASSETS_PATH
+
+GENERATED_ASSETS_PATH = "assets/generated/"
+
 
 CARDS_ALL_FILE_NAME = "cards.json"
 CARDS_3_STARS_FILE_NAME = "cards_3.json"
@@ -15,12 +17,14 @@ NUMBER_OF_STARS_TO_FILE_PATH = {
     "5": f"{GENERATED_ASSETS_PATH}{CARDS_5_STARS_FILE_NAME}",
 }
 
-
-IMAGES_PATH = "assets/generated/images/"
+IMAGES_PATH = "assets/images/"
 CARDS_IMAGES_PATH = f"{IMAGES_PATH}card/"
 CARDS_IMAGES__DEFAULT_PATH = f"{CARDS_IMAGES_PATH}default/"
 CARDS_IMAGES__BLUE_PATH = f"{CARDS_IMAGES_PATH}blue/"
 CARDS_IMAGES__RED_PATH = f"{CARDS_IMAGES_PATH}red/"
+
+BOARD_IMAGES_PATH = f"{IMAGES_PATH}/board/"
+BOARD_TEMPLATE_IMAGE_PATH = f"{BOARD_IMAGES_PATH}board_cut.jpg"
 
 RAELYS_API_GET_ALL_CARDS = "https://triad.raelys.com/api/cards"
 RAELYS_API_RESULT = "results"

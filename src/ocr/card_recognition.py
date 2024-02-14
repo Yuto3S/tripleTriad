@@ -10,12 +10,12 @@ from PIL import Image
 
 from src.utils.download_cards import CARDS_IMAGES__DEFAULT_PATH
 from src.utils.download_cards import FILE_FORMAT_PNG
+from src.utils.download_cards import GENERATED_ASSETS_PATH
 
 VGG16_INPUT_SIZE = 224
 RGB = "RGB"
 
 
-GENERATED_ASSETS_PATH = "assets/generated/"
 GENERATED_CARDS_ALL_EMBEDDINGS_PATH = f"{GENERATED_ASSETS_PATH}cards_all_embeddings"
 NUMPY_FILE_FORMAT = ".npy"
 

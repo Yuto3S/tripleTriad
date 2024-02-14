@@ -1,9 +1,8 @@
 import cv2
 import numpy as np
 
-from src.models.board import IMAGES_PATH
 from src.ocr.card_recognition import find_ids_of_cards
-
+from src.utils.download_cards import BOARD_TEMPLATE_IMAGE_PATH
 
 """
 We are doing a normalization of the input image by scaling the board found on the picture to our reference size.
@@ -43,10 +42,6 @@ CROP_END = "end_crop_point"
 
 COORD_X = "x"
 COORD_Y = "y"
-
-
-BOARD_IMAGES_PATH = f"{IMAGES_PATH}/board/"
-BOARD_TEMPLATE_IMAGE_PATH = f"{BOARD_IMAGES_PATH}board_cut.jpg"
 
 
 # https://pyimagesearch.com/2015/01/26/multi-scale-template-matching-using-python-opencv/
