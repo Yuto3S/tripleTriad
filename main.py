@@ -26,8 +26,8 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
     # TODO() Command line params
     should_download_new_cards = False
     should_simulate_game = True
-    should_try_recognize_card = False
-    should_try_recognize_board = False
+    should_try_recognize_card = True
+    should_try_recognize_board = True
 
     if should_download_new_cards:
         download_and_save_new_cards()
@@ -36,7 +36,7 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
     if should_simulate_game:
         statistics = {"DRAW": 0, "RED": 0, "BLUE": 0}
 
-        while should_simulate_game:
+        for i in range(0, 1):
             board = simulate_game_from_start(
                 first_player_algorithm=play_algorithm_negamax,
                 second_player_algorithm=play_algorithm_random,
@@ -49,8 +49,20 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
 
             print(statistics)
 
+    if should_try_recognize_card:
+        for test_card_id in range(1, 2):
+            test_card_image = cv2.imread(f"assets/test_images/card/{test_card_id}.png")
+            matched_cards_id = find_ids_of_cards([test_card_image])
+            matched_card_from_id = cv2.imread(
+                f"{CARDS_IMAGES__DEFAULT_PATH}{matched_cards_id[0]}.png"
+            )
+            test_image_next_to_matched_card = stack_images_horizontal(
+                [test_card_image, matched_card_from_id]
+            )
+            show_image(test_image_next_to_matched_card)
+
     if should_try_recognize_board:
-        for board_number in range(11, 16):
+        for board_number in range(11, 12):
             board_img = cv2.imread(f"assets/test_images/board/board_{board_number}.png")
 
             board_crop = get_board_from_on_image(board_img)
@@ -72,15 +84,3 @@ if __name__ == "__main__":  # noqa: C901 - complex main function during dev is f
 
             final_image = stack_images_vertical([board_img, board_with_matches])
             show_image(final_image)
-
-    if should_try_recognize_card:
-        for test_card_id in range(1, 10):
-            test_card_image = cv2.imread(f"assets/test_images/card/{test_card_id}.png")
-            matched_cards_id = find_ids_of_cards([test_card_image])
-            matched_card_from_id = cv2.imread(
-                f"{CARDS_IMAGES__DEFAULT_PATH}{matched_cards_id[0]}.png"
-            )
-            test_image_next_to_matched_card = stack_images_horizontal(
-                [test_card_image, matched_card_from_id]
-            )
-            show_image(test_image_next_to_matched_card)

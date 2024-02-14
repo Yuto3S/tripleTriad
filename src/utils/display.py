@@ -11,6 +11,10 @@ class ImageStackFormat(Enum):
 
 def show_image(image):
     cv2.imshow("", image)
+    print(
+        "Please look at the image that opened in a display window. "
+        "Click on any key while viewing it once you are done to move on to the next step."
+    )
     cv2.waitKey(0)
 
 
